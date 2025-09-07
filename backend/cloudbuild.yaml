@@ -1,0 +1,71 @@
+steps:
+  # Pull the previous image for caching (ignore failures for first builds)
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker pull $_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$BRANCH_NAME || echo "No previous image found for branch $BRANCH_NAME, proceeding without cache"
+
+  # Build the Docker image with cache optimization
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+     [
+      'build',
+      '--cache-from',
+      '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$BRANCH_NAME',
+      '--build-arg',
+      'GCP_SA_JSON=$_GCP_SA_JSON',
+      '-t',
+      '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$SHORT_SHA',
+      '-t',
+      '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$BRANCH_NAME',
+      './backend'
+     ]
+
+  # Push the Docker image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$SHORT_SHA']
+
+  # Push the branch-tagged image for future caching
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$BRANCH_NAME']
+
+  # Deploy the Docker image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - $_SERVICE_NAME
+      - '--image'
+      - '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$SHORT_SHA'
+      - '--region'
+      - $_LOCATION
+      - '--platform'
+      - 'managed'
+      - '--port'
+      - '8000'
+      - '--allow-unauthenticated'
+      - '--update-env-vars'
+      - | 
+          ENVIRONMENT=${_ENVIRONMENT},
+          DATABASE_URL=${_DATABASE_URL},
+          SECRET_KEY=${_SECRET_KEY},
+          PROJECT_NAME=${_PROJECT_NAME},
+          BACKEND_CORS_ORIGINS=${_BACKEND_CORS_ORIGINS},
+          GOOGLE_APPLICATION_CREDENTIALS=${_GOOGLE_APPLICATION_CREDENTIALS},
+          ACCESS_TOKEN_EXPIRE_MINUTES=${_ACCESS_TOKEN_EXPIRE_MINUTES},
+          REFRESH_TOKEN_EXPIRE_MINUTES=${_REFRESH_TOKEN_EXPIRE_MINUTES},
+          MAX_UPLOAD_SIZE_MB=${_MAX_UPLOAD_SIZE_MB},
+
+substitutions:
+  _LOCATION: 'us-central1'
+  _PROJECT_NAME: 'AI Interior App Backend'
+  _GOOGLE_APPLICATION_CREDENTIALS: '/app/gcp-key.json'
+
+images:
+  - '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPOSITORY_NAME/interior-backend:$SHORT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
