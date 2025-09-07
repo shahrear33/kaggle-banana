@@ -392,15 +392,46 @@ export default function Interior() {
                   {/* Individual Items */}
                   {costEstimation.items && costEstimation.items.length > 0 && (
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Item Details</h4>
-                      <div className="space-y-2">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Item Details & Shopping Links</h4>
+                      <div className="space-y-4">
                         {costEstimation.items.map((item, index) => (
-                          <div key={index} className="flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg border border-gray-200">
-                            <div className="flex-1">
-                              <span className="text-gray-900 font-medium">{item.item}</span>
-                              {item.quantity && <span className="text-gray-500 text-sm ml-2">({item.quantity})</span>}
+                          <div key={index} className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                            <div className="flex justify-between items-start mb-3">
+                              <div className="flex-1">
+                                <h5 className="text-gray-900 font-semibold">{item.item}</h5>
+                                {item.quantity && <span className="text-gray-500 text-sm">Quantity: {item.quantity}</span>}
+                              </div>
+                              <span className="font-bold text-gray-900 text-lg">{item.cost}</span>
                             </div>
-                            <span className="font-semibold text-gray-900">{item.cost}</span>
+                            
+                            {/* Shopping Links */}
+                            {item.shopping_links && item.shopping_links.length > 0 && (
+                              <div className="mt-3">
+                                <p className="text-sm font-medium text-gray-700 mb-2">Where to buy:</p>
+                                <div className="flex flex-wrap gap-2">
+                                  {item.shopping_links.map((link, linkIndex) => (
+                                    <a
+                                      key={linkIndex}
+                                      href={link.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center px-3 py-1.5 bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm font-medium rounded-lg border border-blue-300 transition-colors duration-200"
+                                    >
+                                      <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                      </svg>
+                                      {link.platform}
+                                      <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                      </svg>
+                                    </a>
+                                  ))}
+                                </div>
+                                {item.shopping_links[0]?.note && (
+                                  <p className="text-xs text-gray-600 mt-2 italic">{item.shopping_links[0].note}</p>
+                                )}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>

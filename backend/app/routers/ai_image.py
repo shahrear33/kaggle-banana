@@ -390,28 +390,82 @@ async def generate_interior_with_cost(
                 print(f"Error processing generated image: {e}")
         
         # Generate cost estimation using Gemini
+        # Define country-specific shopping platforms
+        shopping_platforms = {
+            "United States": ["amazon.com", "wayfair.com", "homedepot.com", "lowes.com", "ikea.com"],
+            "United Kingdom": ["amazon.co.uk", "argos.co.uk", "ikea.com", "johnlewis.com", "dfs.co.uk"],
+            "Germany": ["amazon.de", "ikea.com", "otto.de", "moebel.de", "xxxlutz.de"],
+            "France": ["amazon.fr", "ikea.com", "conforama.fr", "but.fr", "leroymerlin.fr"],
+            "Canada": ["amazon.ca", "ikea.com", "homedepot.ca", "wayfair.ca", "costco.ca"],
+            "Australia": ["amazon.com.au", "ikea.com", "bunnings.com.au", "fantastic-furniture.com.au", "harvey-norman.com.au"],
+            "India": ["amazon.in", "flipkart.com", "pepperfry.com", "urbanladder.com", "ikea.com"],
+            "Bangladesh": ["daraz.com.bd", "pickaboo.com", "bagdoom.com", "othoba.com", "ajkerdeal.com"],
+            "Japan": ["amazon.co.jp", "ikea.com", "nitori-net.jp", "rakuten.co.jp", "yodobashi.com"],
+            "South Korea": ["coupang.com", "11st.co.kr", "ikea.com", "homeplus.co.kr", "lotte.com"],
+            "Brazil": ["amazon.com.br", "ikea.com", "casasbahia.com.br", "magazineluiza.com.br", "mobly.com.br"],
+            "Mexico": ["amazon.com.mx", "ikea.com", "liverpool.com.mx", "homedepot.com.mx", "coppel.com"],
+            "Italy": ["amazon.it", "ikea.com", "leroy-merlin.it", "mondo-convenienza.it", "maisons-du-monde.com"],
+            "Spain": ["amazon.es", "ikea.com", "leroymerlin.es", "el-corte-ingles.es", "maisons-du-monde.com"],
+            "Netherlands": ["bol.com", "ikea.com", "fonq.nl", "wehkamp.nl", "gamma.nl"],
+            "Sweden": ["ikea.com", "ellos.se", "jysk.se", "rusta.com", "bauhaus.se"],
+            "Norway": ["ikea.com", "jysk.no", "rusta.com", "elkjop.no", "bauhaus.no"],
+            "Denmark": ["ikea.com", "jysk.dk", "ilva.dk", "bauhaus.dk", "rusta.com"],
+            "Finland": ["ikea.com", "jysk.fi", "bauhaus.fi", "rusta.com", "verkkokauppa.com"],
+            "Russia": ["ozon.ru", "wildberries.ru", "ikea.com", "leroymerlin.ru", "hoff.ru"],
+            "China": ["tmall.com", "jd.com", "ikea.cn", "suning.com", "gome.com.cn"],
+            "Singapore": ["lazada.sg", "shopee.sg", "ikea.com", "courts.com.sg", "harvey-norman.com.sg"],
+            "Malaysia": ["lazada.com.my", "shopee.com.my", "ikea.com", "courts.com.my", "senheng.com.my"],
+            "Thailand": ["lazada.co.th", "shopee.co.th", "ikea.com", "homepro.co.th", "powerbuy.co.th"],
+            "Philippines": ["lazada.com.ph", "shopee.ph", "ikea.com", "sm-store.com", "robinsons.com.ph"],
+            "Indonesia": ["tokopedia.com", "shopee.co.id", "blibli.com", "ikea.com", "ace.id"],
+            "Vietnam": ["shopee.vn", "lazada.vn", "tiki.vn", "sendo.vn", "ikea.com"],
+            "South Africa": ["takealot.com", "makro.co.za", "ikea.com", "game.co.za", "builders.co.za"],
+            "Nigeria": ["jumia.com.ng", "konga.com", "slot.ng", "ikea.com", "shoprite.co.za"],
+            "Egypt": ["jumia.com.eg", "souq.com", "ikea.com", "carrefour.com", "b.tech"],
+            "UAE": ["amazon.ae", "noon.com", "ikea.com", "carrefour.ae", "sharaf-dg.com"],
+            "Saudi Arabia": ["amazon.sa", "noon.com", "ikea.com", "extra.com", "jarir.com"]
+        }
+        
+        platforms = shopping_platforms.get(country, ["amazon.com", "ikea.com", "wayfair.com"])
+        
         cost_prompt = f"""
-        Based on the interior design renovation described as: "{prompt}" in {country}, 
+        Based on the interior design renovation described as: \"{prompt}\" in {country}, 
         provide a detailed cost breakdown for the renovation. Include:
         
         1. Total estimated cost in local currency
         2. Breakdown by categories (furniture, materials, labor, etc.)
         3. Individual item costs where applicable
         4. Consider {country}-specific pricing and market rates
+        5. For each item, suggest where it can be purchased from these platforms: {', '.join(platforms)}
         
         Format the response as JSON with the following structure:
         {{
-            "total_cost": "amount with currency",
-            "currency": "currency_code",
-            "breakdown": [
-                {{"category": "category_name", "cost": "amount", "description": "details"}},
+            \"total_cost\": \"amount with currency\",
+            \"currency\": \"currency_code\",
+            \"breakdown\": [
+                {{\"category\": \"category_name\", \"cost\": \"amount\", \"description\": \"details\"}},
                 ...
             ],
-            "items": [
-                {{"item": "item_name", "cost": "amount", "quantity": "number"}},
+            \"items\": [
+                {{
+                    \"item\": \"item_name\", 
+                    \"cost\": \"amount\", 
+                    \"quantity\": \"number\",
+                    \"shopping_links\": [
+                        {{\"platform\": \"platform_name\", \"url\": \"search_url_for_item\", \"note\": \"availability_note\"}},
+                        ...
+                    ]
+                }},
                 ...
             ]
         }}
+        
+        For shopping links, create realistic search URLs for each platform. For example:
+        - Amazon: https://amazon.com/s?k=modern+sofa
+        - IKEA: https://ikea.com/search/?q=sofa
+        - Wayfair: https://wayfair.com/furniture/sb0/sofas-c45974.html
+        
+        Make sure the URLs are actual searchable links that would help users find the products.
         """
         
         cost_response = client.models.generate_content(
