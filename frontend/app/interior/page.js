@@ -246,10 +246,10 @@ export default function Interior() {
             {/* Main Results Grid */}
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-12 mb-8">
               
-              {/* Left Column - Images */}
-              <div className="xl:col-span-2">
-                <div className="bg-white rounded-3xl shadow-2xl p-4 border border-gray-100">
-                  <div className="flex items-center justify-between mb-6">
+                {/* Left Column - Images */}
+                <div className="xl:col-span-2">
+                  <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 h-fit">
+                  <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center">
                       <div className="p-3 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-xl mr-4">
                         <MdCompare className="text-2xl text-indigo-600" />
@@ -362,14 +362,14 @@ export default function Interior() {
 
                   {/* Design Prompt */}
                   {usedPrompt && (
-                    <div className="mt-6 bg-gradient-to-br from-indigo-50 to-fuchsia-50 p-4 rounded-xl border border-indigo-200">
-                      <div className="flex items-start space-x-3">
-                        <div className="p-2 bg-indigo-100 rounded-lg">
-                          <MdOutlineDesignServices className="text-lg text-indigo-600" />
+                    <div className="mt-8 bg-gradient-to-br from-indigo-50 to-fuchsia-50 p-6 rounded-xl border border-indigo-200">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-indigo-100 rounded-lg">
+                          <MdOutlineDesignServices className="text-xl text-indigo-600" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 mb-2 text-sm">Design Prompt:</h4>
-                          <p className="text-gray-700 text-xs leading-relaxed bg-white p-2 rounded-lg border border-indigo-200 shadow-sm">
+                          <h4 className="font-semibold text-gray-900 mb-3 text-base">Design Prompt:</h4>
+                          <p className="text-gray-700 text-sm leading-relaxed bg-white p-3 rounded-lg border border-indigo-200 shadow-sm">
                             {usedPrompt}
                           </p>
                         </div>
@@ -382,40 +382,40 @@ export default function Interior() {
               {/* Right Column - Cost Estimation */}
               <div className="xl:col-span-1">
                 {costEstimation && (
-                  <div className="bg-white rounded-3xl shadow-2xl p-4 border border-gray-100 h-fit">
-                    <div className="flex items-center mb-6">
-                      <div className="p-3 bg-emerald-100 rounded-xl mr-4">
-                        <MdAttachMoney className="text-xl text-emerald-600" />
+                  <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 h-fit">
+                    <div className="flex items-center mb-8">
+                      <div className="p-4 bg-emerald-100 rounded-xl mr-5">
+                        <MdAttachMoney className="text-2xl text-emerald-600" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-1">Cost Estimation</h3>
-                        <p className="text-gray-600 text-sm">Renovation costs for {country}</p>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-2">Cost Estimation</h3>
+                        <p className="text-gray-600 text-base">Renovation costs for {country}</p>
                       </div>
                     </div>
 
                     {/* Total Cost */}
-                    <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-4 rounded-xl border border-emerald-200 mb-4">
+                    <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 rounded-xl border border-emerald-200 mb-8">
                       <div className="text-center">
-                        <h4 className="text-sm font-semibold text-gray-900 mb-1">Total Estimated Cost</h4>
-                        <p className="text-xl font-bold text-emerald-700">{costEstimation.total_cost}</p>
-                        <p className="text-xs text-gray-500">{costEstimation.currency}</p>
+                        <h4 className="text-lg font-semibold text-gray-900 mb-3">Total Estimated Cost</h4>
+                        <p className="text-4xl font-bold text-emerald-700 mb-2">{costEstimation.total_cost}</p>
+                        <p className="text-sm text-gray-500">{costEstimation.currency}</p>
                       </div>
                     </div>
 
                     {/* Cost Breakdown - Show All Items */}
                     {costEstimation.breakdown && costEstimation.breakdown.length > 0 && (
-                      <div className="mb-4">
-                        <h4 className="text-sm font-semibold text-gray-900 mb-3">Breakdown</h4>
-                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                      <div className="mb-8">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-5">Cost Breakdown</h4>
+                        <div className="space-y-4 max-h-64 overflow-y-auto">
                           {costEstimation.breakdown.map((item, index) => (
-                            <div key={index} className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                            <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                               <div className="flex justify-between items-center">
                                 <div className="flex-1 min-w-0">
-                                  <h5 className="font-semibold text-gray-900 text-sm truncate">{item.category}</h5>
-                                  <p className="text-xs text-gray-600 truncate">{item.description}</p>
+                                  <h5 className="font-semibold text-gray-900 text-base mb-1">{item.category}</h5>
+                                  <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
                                 </div>
-                                <div className="text-right ml-2">
-                                  <p className="font-semibold text-gray-900 text-sm">{item.cost}</p>
+                                <div className="text-right ml-4">
+                                  <p className="font-bold text-gray-900 text-lg">{item.cost}</p>
                                 </div>
                               </div>
                             </div>
@@ -427,23 +427,23 @@ export default function Interior() {
                     {/* Shopping Links - Show All Items */}
                     {costEstimation.items && costEstimation.items.length > 0 && (
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-900 mb-3">Shopping Links</h4>
-                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-5">Shopping Links</h4>
+                        <div className="space-y-4 max-h-64 overflow-y-auto">
                           {costEstimation.items.map((item, index) => (
-                            <div key={index} className="bg-gray-50 p-2 rounded-lg border border-gray-200">
-                              <div className="flex justify-between items-center mb-1">
-                                <h5 className="text-gray-900 font-semibold text-xs truncate">{item.item}</h5>
-                                <span className="font-bold text-gray-900 text-xs">{item.cost}</span>
+                            <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                              <div className="flex justify-between items-center mb-3">
+                                <h5 className="text-gray-900 font-semibold text-base">{item.item}</h5>
+                                <span className="font-bold text-gray-900 text-lg">{item.cost}</span>
                               </div>
                               {item.shopping_links && item.shopping_links.length > 0 && (
-                                <div className="flex flex-wrap gap-1">
+                                <div className="flex flex-wrap gap-2">
                                   {item.shopping_links.map((link, linkIndex) => (
                                     <a
                                       key={linkIndex}
                                       href={link.url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="inline-flex items-center px-2 py-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-xs font-medium rounded border border-indigo-300 transition-colors duration-200"
+                                      className="inline-flex items-center px-3 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-sm font-medium rounded-lg border border-indigo-300 transition-colors duration-200"
                                     >
                                       {link.platform}
                                     </a>
@@ -458,9 +458,9 @@ export default function Interior() {
 
                     {/* Raw Response Fallback */}
                     {costEstimation.raw_response && (!costEstimation.breakdown || costEstimation.breakdown.length === 0) && (
-                      <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-                        <h4 className="font-semibold text-indigo-900 mb-2 text-sm">Cost Analysis</h4>
-                        <p className="text-indigo-800 text-xs leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
+                      <div className="bg-indigo-50 p-5 rounded-lg border border-indigo-200">
+                        <h4 className="font-semibold text-indigo-900 mb-3 text-base">Cost Analysis</h4>
+                        <p className="text-indigo-800 text-sm leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
                       </div>
                     )}
                   </div>
