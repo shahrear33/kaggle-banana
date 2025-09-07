@@ -1,0 +1,19 @@
+# Firebase App Hosting Configuration
+# This file configures the deployment of the Next.js application
+
+# Set the app root directory to the frontend folder
+runConfig:
+  # Environment variables
+env:
+  # API URL for the backend service
+  # Using NEXT_PUBLIC_ prefix to make it available in the browser
+  - variable: NEXT_PUBLIC_API_URL
+    value: https://8fa83e4a13b2.ngrok-free.app
+    availability:
+      - BUILD
+      - RUNTIME
+  # - variable: NEXT_PUBLIC_FRONTEND_URL
+  #   value: https://dev.interior.app
+  #   availability:
+  #     - BUILD
+  #     - RUNTIME

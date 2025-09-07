@@ -1,0 +1,18 @@
+# Firebase App Hosting Configuration
+# This file configures the deployment of the Next.js application
+
+runConfig:
+  # Environment variables
+  cpu: 1
+  maxInstances: 1
+env:
+  - variable: NEXT_PUBLIC_API_URL
+    value: https://8fa83e4a13b2.ngrok-free.app
+    availability:
+      - BUILD
+      - RUNTIME
+  # - variable: NEXT_PUBLIC_FRONTEND_URL
+  #   value: https://dev.interior.app
+  #   availability:
+  #     - BUILD
+  #     - RUNTIME
