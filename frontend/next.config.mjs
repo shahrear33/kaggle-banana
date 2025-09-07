@@ -2,7 +2,7 @@
 const nextConfig = {
     images: {
         unoptimized: true,
-        domains: ['localhost', '8fa83e4a13b2.ngrok-free.app'],
+        domains: ['localhost', 'afeffd77ed5d.ngrok-free.app'],
         remotePatterns: [
             {
                 protocol: 'http',
@@ -17,7 +17,7 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: '8fa83e4a13b2.ngrok-free.app',
+                hostname: 'afeffd77ed5d.ngrok-free.app',
                 pathname: '/**',
             }
         ],
