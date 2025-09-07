@@ -5,6 +5,8 @@ runConfig:
   # Environment variables
   cpu: 1
   maxInstances: 1
+  # Configure build to use legacy peer deps for npm install
+  buildCommand: npm install --legacy-peer-deps && npm run build
 env:
   - variable: NEXT_PUBLIC_API_URL
     value: https://8fa83e4a13b2.ngrok-free.app
