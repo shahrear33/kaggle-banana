@@ -566,27 +566,91 @@ export default function Interior() {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-3">Upload Room Photo</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  />
-                  {uploadedImage && (
-                    <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
-                      <p className="text-sm text-emerald-600 mb-2">✓ Image uploaded: {uploadedImage.name}</p>
-                      <div className="relative w-20 h-20 rounded-lg overflow-hidden">
-                        <Image 
-                          src={URL.createObjectURL(uploadedImage)}
-                          alt="Uploaded room" 
-                          fill
-                          style={{ objectFit: 'cover' }}
-                          className="rounded-lg"
-                          unoptimized
-                        />
+                  
+                  {/* Upload Area */}
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      id="room-file-upload"
+                    />
+                    
+                    {!uploadedImage ? (
+                      // Upload placeholder
+                      <div className="border-2 border-dashed border-indigo-300 rounded-xl p-8 text-center hover:border-indigo-400 hover:bg-indigo-50/50 transition-all duration-300">
+                        <div className="flex flex-col items-center space-y-3">
+                          <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                            <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-base font-medium text-gray-700">Upload your room photo</p>
+                            <p className="text-sm text-gray-500">Click to browse</p>
+                          </div>
+                          <p className="text-xs text-gray-400">PNG, JPG, JPEG up to 10MB</p>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      // Image preview
+                      <div className="relative group">
+                        <div className="border-2 border-indigo-200 rounded-xl overflow-hidden">
+                          <Image
+                            src={URL.createObjectURL(uploadedImage)}
+                            alt="Uploaded room photo"
+                            width={600}
+                            height={256}
+                            className="w-full h-64 object-contain bg-gray-50"
+                            unoptimized
+                          />
+                          
+                          {/* Overlay on hover */}
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex space-x-2">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  // You can add full-size preview functionality here
+                                }}
+                                className="bg-white bg-opacity-90 hover:bg-opacity-100 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-1"
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <span>Preview</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setUploadedImage(null);
+                                }}
+                                className="bg-red-500 bg-opacity-90 hover:bg-opacity-100 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-1"
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                <span>Remove</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* File info */}
+                        <div className="mt-3 flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                            <span className="text-sm font-medium text-emerald-700">Room photo uploaded</span>
+                          </div>
+                          <span className="text-sm text-emerald-600">{uploadedImage?.name}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-3">Describe Your Renovation</label>
