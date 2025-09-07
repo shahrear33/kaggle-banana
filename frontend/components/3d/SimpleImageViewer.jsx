@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
-const SimpleImageViewer = ({ imageUrl, rooms = [], onRoomClick, selectedRoom }) => {
+const SimpleImageViewer = ({ imageUrl, rooms = [], onRoomClick, selectedRoom, showFullImage = true, onImageClick }) => {
   const [hoveredRoom, setHoveredRoom] = useState(null);
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
@@ -66,7 +66,7 @@ const SimpleImageViewer = ({ imageUrl, rooms = [], onRoomClick, selectedRoom }) 
 
   if (!imageUrl) {
     return (
-      <div className="flex items-center justify-center h-[500px] bg-gray-100 rounded-2xl">
+      <div className="flex items-center justify-center h-[650px] bg-gray-100 rounded-2xl">
         <p className="text-gray-600">No image available</p>
       </div>
     );
@@ -76,7 +76,7 @@ const SimpleImageViewer = ({ imageUrl, rooms = [], onRoomClick, selectedRoom }) 
     <div className="relative">
       <div 
         ref={containerRef}
-        className="w-full h-[500px] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-gray-100 to-gray-200 relative"
+        className={`w-full ${showFullImage ? 'h-[650px]' : 'h-[550px]'} rounded-2xl overflow-visible shadow-xl bg-gradient-to-br from-gray-100 to-gray-200 relative p-4`}
       >
         <Image 
           ref={imageRef}
@@ -84,8 +84,9 @@ const SimpleImageViewer = ({ imageUrl, rooms = [], onRoomClick, selectedRoom }) 
           alt="3D Interior with Room Detection" 
           fill
           style={{ objectFit: 'contain' }}
-          className="rounded-2xl"
+          className={`rounded-2xl p-2 ${onImageClick ? 'cursor-pointer' : ''}`}
           unoptimized
+          onClick={onImageClick}
         />
         
         {/* Room Overlays - Only show on hover */}
@@ -116,10 +117,10 @@ const SimpleImageViewer = ({ imageUrl, rooms = [], onRoomClick, selectedRoom }) 
                 height: `${scaledHeight}px`,
               }}
             >
-              <div className="absolute -top-8 left-0 bg-indigo-600 text-white px-2 py-1 rounded text-xs font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute -top-10 left-0 bg-indigo-600 text-white px-3 py-2 rounded text-sm font-medium shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
                 {room.label}
               </div>
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center z-40">
                 <span className="text-indigo-700 font-semibold text-xs bg-white/90 px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   Click to generate interior
                 </span>
