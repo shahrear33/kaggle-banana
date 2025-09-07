@@ -295,6 +295,174 @@ async def generate_image_from_upload(
         print(f"Error generating image with upload: {str(e)}")
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error generating image: {str(e)}")
 
+SYSTEM_PROMPT_2D_TO_3D = '''
+You are an image generation assistant that converts *2D single-floor plans* into *full 3D interior models*.
+
+Input: A 2D single-floor plan image.
+Output: A high-resolution 3D rendering showing the *entire interior of the floor*, including all rooms, walls, doors, windows, and furniture.
+
+Rules:
+1. *Full Floor Coverage:* Always render the *entire floor layout*. Do not generate single rooms, exterior views, or partial floor areas.
+2. *Layout Accuracy:* Reconstruct walls, doors, windows, and partitions exactly as in the floor plan.
+3. *Furniture & Materials:*
+   * Place beds, sofas, dining tables, kitchen units, and other essentials according to the plan.
+   * Floors: wood in living/bedrooms, tiles in kitchen/bathrooms.
+   * Walls: neutral colors (white, cream).
+4. *Lighting:* Use natural daylight from windows and warm ambient interior lighting.
+5. *Camera & Angle:*
+   * Primary: isometric/top-down view with a 30-45° tilt of the full floor.
+   * Use a wide-angle lens (24–28mm) for interiors.
+
+Constraints:
+• Never generate exterior house views or partial rooms unless explicitly instructed.
+• Always assume the user wants a *complete interior 3D visualization of the single-floor plan*.
+'''
+
+@router.post('/generate-interior-3d-with-cost')
+async def generate_interior_3d_with_cost(
+    request: Request,
+    prompt: str = Form(...),
+    country: str = Form(...),
+    image: UploadFile = File(None)
+):
+    """
+    Generate a 3D interior design image from a 2D floor plan and provide cost estimation based on country, using the strict system prompt.
+    """
+    try:
+        global client
+        if client is None:
+            api_key = os.getenv('GEMINI_KEY')
+            if not api_key:
+                raise HTTPException(status_code=500, detail="GEMINI_KEY not found")
+            client = genai.Client(api_key=api_key)
+        os.makedirs("assets", exist_ok=True)
+        # Generate image first
+        full_prompt = SYSTEM_PROMPT_2D_TO_3D + f"\nUser instructions: {prompt}"
+        if image:
+            image_data = await image.read()
+            temp_path = f"assets/temp_{os.urandom(8).hex()}.png"
+            with open(temp_path, "wb") as f:
+                f.write(image_data)
+            try:
+                img = Image.open(temp_path)
+                img.load()
+                if img.size[0] == 0 or img.size[1] == 0:
+                    raise HTTPException(status_code=400, detail="Invalid image upload")
+            except Exception as e:
+                try:
+                    os.remove(temp_path)
+                except Exception:
+                    pass
+                raise HTTPException(status_code=400, detail=f"Invalid image upload: {e}")
+            response = client.models.generate_content(
+                model="gemini-2.5-flash-image-preview",
+                contents=[full_prompt, img]
+            )
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+        else:
+            # No image, just prompt
+            response = client.models.generate_content(
+                model="gemini-2.5-flash-image-preview",
+                contents=full_prompt
+            )
+        # Extract image parts
+        image_parts = []
+        for part in response.candidates[0].content.parts:
+            if hasattr(part, 'inline_data') and part.inline_data:
+                image_parts.append(part.inline_data.data)
+            elif hasattr(part, 'inlineData') and part.inlineData:
+                image_parts.append(part.inlineData.data)
+        image_url = None
+        if image_parts:
+            try:
+                # Process and save the generated image
+                if isinstance(image_parts[0], bytes):
+                    base64_string = image_parts[0].decode('utf-8')
+                    decoded_data = base64.b64decode(base64_string)
+                elif isinstance(image_parts[0], str):
+                    decoded_data = base64.b64decode(image_parts[0])
+                else:
+                    decoded_data = image_parts[0]
+                generated_image = Image.open(BytesIO(decoded_data))
+                image_path = f"assets/generated_{os.urandom(16).hex()}.png"
+                generated_image.save(image_path)
+                base_url = str(request.base_url).rstrip('/')
+                image_url = f"{base_url}/{image_path}"
+            except Exception as e:
+                print(f"Error processing generated image: {e}")
+        # Generate cost estimation using Gemini
+        cost_prompt = f"""
+        Based on the 3D interior design generated from the floor plan and user instructions: \"{prompt}\" in {country}, 
+        provide a detailed cost breakdown for the project. Include:
+        1. Total estimated cost in local currency
+        2. Breakdown by categories (furniture, materials, labor, etc.)
+        3. Individual item costs where applicable
+        4. Consider {country}-specific pricing and market rates
+        Format the response as JSON with the following structure:
+        {{
+            "total_cost": "amount with currency",
+            "currency": "currency_code",
+            "breakdown": [
+                {{"category": "category_name", "cost": "amount", "description": "details"}},
+                ...
+            ],
+            "items": [
+                {{"item": "item_name", "cost": "amount", "quantity": "number"}},
+                ...
+            ]
+        }}
+        """
+        cost_response = client.models.generate_content(
+            model="gemini-2.0-flash-exp",
+            contents=cost_prompt
+        )
+        # Extract cost estimation text
+        cost_text = ""
+        for part in cost_response.candidates[0].content.parts:
+            if hasattr(part, 'text') and part.text:
+                cost_text = part.text
+                break
+        # Try to parse JSON from the response
+        import json
+        import re
+        try:
+            # Extract JSON from the response text
+            json_match = re.search(r'\{.*\}', cost_text, re.DOTALL)
+            if json_match:
+                cost_data = json.loads(json_match.group())
+            else:
+                # Fallback if no JSON found
+                cost_data = {
+                    "total_cost": "Cost estimation unavailable",
+                    "currency": "USD",
+                    "breakdown": [],
+                    "items": [],
+                    "raw_response": cost_text
+                }
+        except json.JSONDecodeError:
+            cost_data = {
+                "total_cost": "Cost estimation unavailable",
+                "currency": "USD", 
+                "breakdown": [],
+                "items": [],
+                "raw_response": cost_text
+            }
+        return {
+            "image_url": image_url,
+            "cost_estimation": cost_data,
+            "country": country,
+            "prompt": prompt
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error generating interior with cost: {str(e)}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+                           detail=f"Error generating interior with cost: {str(e)}")
+
 @router.post('/generate-interior-with-cost')
 async def generate_interior_with_cost(
     request: Request,

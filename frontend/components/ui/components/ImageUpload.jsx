@@ -74,9 +74,12 @@ export default function ImageUpload() {
     selectedImages.forEach((image) => {
       formData.append('image_files', image);
     });
+    if (prompt) {
+      formData.append('prompt', prompt);
+    }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/ai/image-upload-tagging`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/generate-3d-interior-from-floorplan`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -90,7 +93,10 @@ export default function ImageUpload() {
       }
 
       const data = await response.json();
-      console.log('Upload response:', data);
+      if (data && data.generated_image_url && onGenerated) {
+        onGenerated(data.generated_image_url);
+      }
+      console.log('3D Generation response:', data);
     } catch (error) {
       console.error('Error uploading images:', error);
     }
@@ -99,7 +105,7 @@ export default function ImageUpload() {
   return (
     <div className="w-full">
       <label className="block mb-4 text-lg font-medium text-gray-900 dark:text-gray-300">
-        Upload Images
+        Upload 2D Floor Plan Image
       </label>
 
       <div
@@ -148,18 +154,6 @@ export default function ImageUpload() {
         </div>
       )}
 
-      {selectedImages.length > 0 && (
-        <div className="mt-8 flex justify-end">
-          <Button
-            onClick={handleUploadImages}
-            variant="primary"
-            className="flex items-center space-x-2 px-6 py-3 text-lg"
-            leftIcon={<FaUpload />}
-          >
-            Upload Images
-          </Button>
-        </div>
-      )}
     </div>
   );
-} 
+}

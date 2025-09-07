@@ -2,21 +2,90 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/components/button";
+import { Input } from "@/components/ui/components/input";
+import { Textarea } from "@/components/ui/components/textarea";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/components/toaster";
 import Image from "next/image";
-import { FiDownload, FiShare2, FiArrowLeft } from "react-icons/fi";
-import { MdOutlineArchitecture } from "react-icons/md";
-import { BsBuilding } from "react-icons/bs";
+import { FiDownload, FiShare2, FiArrowLeft, FiUpload, FiDollarSign } from "react-icons/fi";
+import { MdOutlineDesignServices, MdAttachMoney } from "react-icons/md";
 import Hero from "@/components/utils/Hero";
-import TextToImage from "@/components/ai/TextToImage";
 
-export default function Architecture() {
+export default function FloorPlan3DWithCost() {
   const [generatedImage, setGeneratedImage] = useState(null);
   const [usedPrompt, setUsedPrompt] = useState("");
+  const [costEstimation, setCostEstimation] = useState(null);
+  const [country, setCountry] = useState("United States");
+  const [prompt, setPrompt] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+
+  // List of countries for selection
+  const countries = [
+    "United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Spain", "Netherlands",
+    "Sweden", "Norway", "Denmark", "Australia", "New Zealand", "Japan", "South Korea", "Singapore",
+    "India", "China", "Brazil", "Mexico", "Argentina", "South Africa", "UAE", "Saudi Arabia",
+    "Bangladesh", "Pakistan", "Indonesia", "Thailand", "Malaysia", "Philippines"
+  ];
+
+  // Function to handle 3D generation with cost estimation
+  const handleGenerate = async () => {
+    if (!prompt.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a floor plan or design description",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("prompt", prompt);
+      formData.append("country", country);
+      
+      if (uploadedImage) {
+        formData.append("image", uploadedImage);
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/api/v1/generate-interior-3d-with-cost`, {
+        method: "POST",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (response.ok && data.image_url) {
+        setGeneratedImage(data.image_url);
+        setUsedPrompt(data.prompt);
+        setCostEstimation(data.cost_estimation);
+        toast({
+          title: "Success",
+          description: "3D interior and cost estimation generated successfully",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: data.detail || data.message || "Failed to generate 3D interior",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Function to download the generated image
   const downloadImage = async () => {
@@ -33,7 +102,7 @@ export default function Architecture() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `3d-architecture-${Date.now()}.png`;
+      link.download = `floorplan-3d-${Date.now()}.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -41,7 +110,7 @@ export default function Architecture() {
       
       toast({
         title: "Success",
-        description: "Architecture image downloaded successfully",
+        description: "3D interior image downloaded successfully",
       });
     } catch (error) {
       toast({
@@ -52,31 +121,38 @@ export default function Architecture() {
     }
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploadedImage(file);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-fuchsia-50 to-rose-100 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-100 font-sans">
       {/* Navigation */}
       <Hero />
 
       {/* Header Section */}
-      <section className="relative bg-gradient-to-br from-indigo-900 via-fuchsia-900 to-rose-900 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-purple-900 via-pink-900 to-rose-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221%22%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         <div className="relative max-w-7xl mx-auto px-6 text-center">
           <Button 
             onClick={() => router.back()} 
-            variant="gradient" 
+            variant="outline" 
             className="mb-8 border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20"
           >
             <FiArrowLeft className="mr-2" /> Back to Home
           </Button>
           <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium border border-white/20 mb-6">
-            <BsBuilding className="mr-2" />
-            3D Architecture Generation
+            <MdOutlineDesignServices className="mr-2" />
+            3D Floor Plan Visualization
           </div>
           <h1 className="text-4xl md:text-6xl font-extralight tracking-tight leading-tight text-white mb-6">
-            Create Stunning <span className="font-bold bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent">3D Architecture</span>
+            Create <span className="font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">3D Interior & Cost</span>
           </h1>
-          <p className="text-xl text-indigo-100 leading-relaxed max-w-3xl mx-auto">
-            Transform your architectural vision into photorealistic 3D structures. Describe your building concept and watch our AI generate detailed architectural visualizations.
+          <p className="text-xl text-purple-100 leading-relaxed max-w-3xl mx-auto">
+            Transform your 2D floor plans into stunning 3D interior visualizations with detailed cost estimation. Upload existing plans or describe your dream space.
           </p>
         </div>
       </section>
@@ -86,89 +162,219 @@ export default function Architecture() {
         {/* Generation Interface */}
         <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100 mb-16">
           <div className="flex items-center mb-8">
-            <div className="p-4 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-2xl mr-6">
-              <MdOutlineArchitecture className="text-3xl text-indigo-600" />
+            <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl mr-6">
+              <MdOutlineDesignServices className="text-3xl text-purple-600" />
             </div>
             <div>
-              <h2 className="text-3xl font-semibold text-gray-900 mb-2">Architecture Generator</h2>
-              <p className="text-gray-600">Describe your architectural vision in detail for best results</p>
+              <h2 className="text-3xl font-semibold text-gray-900 mb-2">3D Interior & Cost Estimation</h2>
+              <p className="text-gray-600">Generate 3D visualizations from floor plans and get detailed renovation costs</p>
             </div>
-          </div>
-          
-          <div className="bg-gradient-to-br from-indigo-50 to-cyan-50 rounded-2xl p-8">
-            <TextToImage 
-              onGenerated={(url, prompt) => { 
-                setGeneratedImage(url); 
-                setUsedPrompt(prompt); 
-              }} 
-              placeholder="Describe your architectural design... (e.g., 'Modern glass office building with steel frame, 20 stories, minimalist design, urban setting, evening lighting')"
-            />
           </div>
 
-          {/* Architecture Tips */}
+          {/* Country Selection */}
+          <div className="mb-8">
+            <label className="block text-sm font-semibold text-gray-700 mb-3">Select Your Country</label>
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white text-gray-900"
+            >
+              {countries.map((countryOption) => (
+                <option key={countryOption} value={countryOption}>
+                  {countryOption}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8">
+            <div className="space-y-6">
+              {/* Image Upload Section */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3">Upload Floor Plan (Optional)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
+                {uploadedImage && (
+                  <p className="text-sm text-green-600 mt-2">✓ Floor plan uploaded: {uploadedImage.name}</p>
+                )}
+              </div>
+
+              {/* Text Description Section */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3">Describe Your Floor Plan or Interior Design</label>
+                <Textarea
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder="Describe your floor plan or interior design in detail... (e.g., 'Single-floor, 3 bedrooms, open kitchen and living room, large windows, modern furniture, wood floors in bedrooms, tile in kitchen and bathroom')"
+                  className="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                />
+              </div>
+
+              <Button
+                onClick={handleGenerate}
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-4 rounded-xl font-semibold transition-all duration-300"
+              >
+                {loading ? "Generating 3D Interior & Cost..." : "Generate 3D Interior & Cost Estimation"}
+              </Button>
+            </div>
+          </div>
+
+          {/* Floor Plan Tips */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-              <h4 className="font-semibold text-blue-900 mb-3">Building Types</h4>
-              <p className="text-blue-700 text-sm">Residential, commercial, industrial, institutional, mixed-use developments</p>
+            <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
+              <h4 className="font-semibold text-purple-900 mb-3">Floor Plan Types</h4>
+              <p className="text-purple-700 text-sm">Apartment, house, office, studio, loft, commercial space</p>
             </div>
-            <div className="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
-              <h4 className="font-semibold text-indigo-900 mb-3">Architectural Styles</h4>
-              <p className="text-indigo-700 text-sm">Modern, contemporary, classical, brutalist, art deco, minimalist</p>
+            <div className="bg-pink-50 p-6 rounded-xl border border-pink-100">
+              <h4 className="font-semibold text-pink-900 mb-3">Room Layout</h4>
+              <p className="text-pink-700 text-sm">Open floor, separate rooms, kitchen layout, bathroom placement</p>
             </div>
-            <div className="bg-cyan-50 p-6 rounded-xl border border-cyan-100">
-              <h4 className="font-semibold text-cyan-900 mb-3">Details to Include</h4>
-              <p className="text-cyan-700 text-sm">Materials, lighting, surroundings, scale, architectural features</p>
+            <div className="bg-rose-50 p-6 rounded-xl border border-rose-100">
+              <h4 className="font-semibold text-rose-900 mb-3">Design Elements</h4>
+              <p className="text-rose-700 text-sm">Furniture style, flooring, lighting, windows, color scheme</p>
             </div>
           </div>
         </div>
 
-        {/* Generated Image Display */}
+        {/* Generated Image and Cost Display */}
         {generatedImage && (
-          <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-              <div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-2">Your 3D Architecture</h3>
-                <p className="text-gray-600">Professional architectural visualization ready for download</p>
-              </div>
-              <div className="flex space-x-3">
-                <Button 
-                  onClick={downloadImage}
-                  className="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-grey-900 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <FiDownload className="mr-2" /> Download HD
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-gray-300 hover:border-blue-300 hover:bg-blue-50 px-6 py-3 rounded-xl font-semibold transition-all duration-300"
-                >
-                  <FiShare2 className="mr-2" /> Share
-                </Button>
-              </div>
-            </div>
-            
-            <div className="relative w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-100 to-gray-200">
-              <Image 
-                src={generatedImage}
-                alt="Generated 3D Architecture" 
-                fill
-                style={{ objectFit: 'contain' }}
-                className="rounded-2xl"
-                unoptimized
-              />
-            </div>
-            
-            <div className="mt-8 bg-gradient-to-br from-indigo-50 to-cyan-50 p-6 rounded-2xl border border-blue-200">
-              <div className="flex items-start space-x-4">
-                <div className="p-3 bg-blue-100 rounded-xl">
-                  <MdOutlineArchitecture className="text-2xl text-blue-600" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Generated Image */}
+            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+              <div className="flex flex-col justify-between mb-6 gap-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Your 3D Interior</h3>
+                  <p className="text-gray-600">Photorealistic 3D visualization</p>
                 </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 mb-2 text-lg">Architecture Prompt:</h4>
-                  <p className="text-gray-700 leading-relaxed bg-white p-4 rounded-xl border border-blue-200 shadow-sm">
-                    {usedPrompt || "No prompt available"}
-                  </p>
+                <div className="flex space-x-3">
+                  <Button 
+                    onClick={downloadImage}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <FiDownload className="mr-2" /> Download
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="border-gray-300 hover:border-purple-300 hover:bg-purple-50 px-4 py-2 rounded-xl font-semibold transition-all duration-300"
+                  >
+                    <FiShare2 className="mr-2" /> Share
+                  </Button>
                 </div>
               </div>
+              
+              <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-gray-100 to-gray-200 mb-6">
+                <Image 
+                  src={generatedImage}
+                  alt="Generated 3D Interior" 
+                  fill
+                  style={{ objectFit: 'contain' }}
+                  className="rounded-2xl"
+                  unoptimized
+                />
+              </div>
+              
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-2xl border border-purple-200">
+                <div className="flex items-start space-x-3">
+                  <div className="p-2 bg-purple-100 rounded-xl">
+                    <MdOutlineDesignServices className="text-xl text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-gray-900 mb-2">Design Prompt:</h4>
+                    <p className="text-gray-700 text-sm leading-relaxed bg-white p-3 rounded-xl border border-purple-200 shadow-sm">
+                      {usedPrompt || "No prompt available"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cost Estimation */}
+            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+              <div className="flex items-center mb-6">
+                <div className="p-3 bg-green-100 rounded-xl mr-4">
+                  <MdAttachMoney className="text-2xl text-green-600" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-1">Cost Estimation</h3>
+                  <p className="text-gray-600">Renovation costs for {country}</p>
+                </div>
+              </div>
+
+              {costEstimation ? (
+                <div className="space-y-6">
+                  {/* Total Cost */}
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="text-lg font-semibold text-gray-900">Total Estimated Cost</h4>
+                        <p className="text-sm text-gray-600">Complete renovation budget</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-green-700">{costEstimation.total_cost}</p>
+                        <p className="text-sm text-gray-500">{costEstimation.currency}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cost Breakdown */}
+                  {costEstimation.breakdown && costEstimation.breakdown.length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Cost Breakdown</h4>
+                      <div className="space-y-3">
+                        {costEstimation.breakdown.map((item, index) => (
+                          <div key={index} className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                            <div className="flex justify-between items-start">
+                              <div className="flex-1">
+                                <h5 className="font-semibold text-gray-900">{item.category}</h5>
+                                <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                              </div>
+                              <div className="text-right ml-4">
+                                <p className="font-semibold text-gray-900">{item.cost}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Individual Items */}
+                  {costEstimation.items && costEstimation.items.length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Item Details</h4>
+                      <div className="space-y-2">
+                        {costEstimation.items.map((item, index) => (
+                          <div key={index} className="flex justify-between items-center py-2 px-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <div className="flex-1">
+                              <span className="text-gray-900 font-medium">{item.item}</span>
+                              {item.quantity && <span className="text-gray-500 text-sm ml-2">({item.quantity})</span>}
+                            </div>
+                            <span className="font-semibold text-gray-900">{item.cost}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Raw Response Fallback */}
+                  {costEstimation.raw_response && (!costEstimation.breakdown || costEstimation.breakdown.length === 0) && (
+                    <div className="bg-purple-50 p-4 rounded-xl border border-purple-200">
+                      <h4 className="font-semibold text-purple-900 mb-2">Cost Analysis</h4>
+                      <p className="text-purple-800 text-sm leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <FiDollarSign className="mx-auto text-4xl text-gray-400 mb-4" />
+                  <p className="text-gray-500">Cost estimation will appear here after generating your 3D interior</p>
+                </div>
+              )}
             </div>
           </div>
         )}
