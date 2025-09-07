@@ -50,7 +50,7 @@ steps:
       - '--update-env-vars'
       - | 
           ENVIRONMENT=${_ENVIRONMENT},
-          DATABASE_URL=${_DATABASE_URL},
+          DB_URL=${_DATABASE_URL},
           SECRET_KEY=${_SECRET_KEY},
           PROJECT_NAME=${_PROJECT_NAME},
           ACCESS_TOKEN_EXPIRE_MINUTES=${_ACCESS_TOKEN_EXPIRE_MINUTES},
