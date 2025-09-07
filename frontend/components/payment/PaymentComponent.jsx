@@ -85,7 +85,7 @@ export default function PaymentComponent({ billed, setBilled, paymentMethod, set
         <p className='my-8 font-semibold '>Gift Card or Discount Code :</p>
         <div className='flex space-x-4'>
             <input className='border bg-white border-gray-300 rounded-md px-4 py-2  ' type="text" name="discount" id="discount" placeholder='Enter your code' />
-            <button className='px-4 py-2 bg-[#199292] text-white rounded-md'>Apply</button>
+            <button className='px-4 py-2 bg-[#199292] text-grey-900 rounded-md'>Apply</button>
         </div>
       </div>
     </div>

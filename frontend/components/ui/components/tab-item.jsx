@@ -14,7 +14,7 @@ const TabItem = ({ value, onClick, to, className = '' }) => {
     duration-200 
     cursor-pointer 
     ${className}
-    ${isSelected ? 'font-bold text-gray-900 dark:text-white' : 'font-medium hover:text-gray-900 dark:hover:text-white'}
+    ${isSelected ? 'font-bold text-gray-900 dark:text-grey-900' : 'font-medium hover:text-gray-900 dark:hover:text-grey-900'}
   `
 
   const linkContent = (

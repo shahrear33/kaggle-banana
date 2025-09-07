@@ -214,9 +214,9 @@ export default function WorkshopsPage() {
               <div className="flex gap-2">
                 <Tabs defaultValue="all" value={eventType} onValueChange={setEventType} className="w-full sm:w-auto">
                   <TabsList className="grid grid-cols-3 w-full sm:w-[280px] bg-indigo-100 dark:bg-indigo-900/30">
-                    <TabsTrigger value="all" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">All Events</TabsTrigger>
-                    <TabsTrigger value="workshop" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Workshops</TabsTrigger>
-                    <TabsTrigger value="hackathon" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Hackathons</TabsTrigger>
+                    <TabsTrigger value="all" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-grey-900">All Events</TabsTrigger>
+                    <TabsTrigger value="workshop" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-grey-900">Workshops</TabsTrigger>
+                    <TabsTrigger value="hackathon" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-grey-900">Hackathons</TabsTrigger>
                   </TabsList>
                 </Tabs>
               </div>
@@ -339,13 +339,13 @@ export default function WorkshopsPage() {
                           {/* Badge with higher z-index */}
                           <Badge
                             className={`absolute top-3 right-3 z-20 ${
-                              isHackathon ? 'bg-purple-600 text-white' : 'bg-indigo-600 text-white'
+                              isHackathon ? 'bg-purple-600 text-grey-900' : 'bg-indigo-600 text-grey-900'
                             }`}
                           >
                             {isHackathon ? 'Hackathon' : 'Workshop'}
                           </Badge>
                           {/* Date with higher z-index */}
-                          <div className="absolute bottom-2 left-3 dark:text-white text-black font-medium z-20">
+                          <div className="absolute bottom-2 left-3 dark:text-grey-900 text-black font-medium z-20">
                             <div className="flex items-center text-sm">
                               <FaCalendarAlt className="mr-2" />
                               {isHackathon ? (

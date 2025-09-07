@@ -53,17 +53,17 @@ export default function Architecture() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-100 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-fuchsia-50 to-rose-100 font-sans">
       {/* Navigation */}
       <Hero />
 
       {/* Header Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-indigo-900 to-cyan-900 text-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-indigo-900 via-fuchsia-900 to-rose-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221%22%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         <div className="relative max-w-7xl mx-auto px-6 text-center">
           <Button 
             onClick={() => router.back()} 
-            variant="outline" 
+            variant="gradient" 
             className="mb-8 border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20"
           >
             <FiArrowLeft className="mr-2" /> Back to Home
@@ -73,9 +73,9 @@ export default function Architecture() {
             3D Architecture Generation
           </div>
           <h1 className="text-4xl md:text-6xl font-extralight tracking-tight leading-tight text-white mb-6">
-            Create Stunning <span className="font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">3D Architecture</span>
+            Create Stunning <span className="font-bold bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent">3D Architecture</span>
           </h1>
-          <p className="text-xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-indigo-100 leading-relaxed max-w-3xl mx-auto">
             Transform your architectural vision into photorealistic 3D structures. Describe your building concept and watch our AI generate detailed architectural visualizations.
           </p>
         </div>
@@ -86,8 +86,8 @@ export default function Architecture() {
         {/* Generation Interface */}
         <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100 mb-16">
           <div className="flex items-center mb-8">
-            <div className="p-4 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl mr-6">
-              <MdOutlineArchitecture className="text-3xl text-blue-600" />
+            <div className="p-4 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-2xl mr-6">
+              <MdOutlineArchitecture className="text-3xl text-indigo-600" />
             </div>
             <div>
               <h2 className="text-3xl font-semibold text-gray-900 mb-2">Architecture Generator</h2>
@@ -95,7 +95,7 @@ export default function Architecture() {
             </div>
           </div>
           
-          <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8">
+          <div className="bg-gradient-to-br from-indigo-50 to-cyan-50 rounded-2xl p-8">
             <TextToImage 
               onGenerated={(url, prompt) => { 
                 setGeneratedImage(url); 
@@ -133,7 +133,7 @@ export default function Architecture() {
               <div className="flex space-x-3">
                 <Button 
                   onClick={downloadImage}
-                  className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  className="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-grey-900 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <FiDownload className="mr-2" /> Download HD
                 </Button>
@@ -157,7 +157,7 @@ export default function Architecture() {
               />
             </div>
             
-            <div className="mt-8 bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-2xl border border-blue-200">
+            <div className="mt-8 bg-gradient-to-br from-indigo-50 to-cyan-50 p-6 rounded-2xl border border-blue-200">
               <div className="flex items-start space-x-4">
                 <div className="p-3 bg-blue-100 rounded-xl">
                   <MdOutlineArchitecture className="text-2xl text-blue-600" />

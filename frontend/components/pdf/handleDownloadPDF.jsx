@@ -50,9 +50,9 @@ const handleDownloadPDF = (payment) => {
   doc.setProperties({
     title: "Payment Receipt",
     subject: "Payment Receipt for " + (payment.name || "Service"),
-    author: "Try Ship",
+    author: "3D Vision AI",
     keywords: "payment, receipt, invoice",
-    creator: "Try Ship Payment System"
+    creator: "3D Vision AI Payment System"
   });
 
   // Define colors
@@ -68,7 +68,7 @@ const handleDownloadPDF = (payment) => {
   doc.setTextColor(255, 255, 255); // White text
   doc.setFontSize(24);
   doc.setFont("helvetica", "bold");
-  doc.text("Try Ship", 20, 15);
+  doc.text("3D Vision AI", 20, 15);
   
   doc.setFontSize(12);
   doc.setFont("helvetica", "normal");
@@ -228,9 +228,9 @@ const handleDownloadPDF = (payment) => {
   doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
   doc.setFontSize(8);
   doc.setFont("helvetica", "normal");
-  doc.text("Thank you for your business with Try Ship!", 105, pageHeight - 20, null, null, "center");
-  doc.text("For any inquiries, please contact support@Try Ship.com", 105, pageHeight - 15, null, null, "center");
-  doc.text("© " + new Date().getFullYear() + " Try Ship. All rights reserved.", 105, pageHeight - 10, null, null, "center");
+  doc.text("Thank you for your business with 3D Vision AI!", 105, pageHeight - 20, null, null, "center");
+  doc.text("For any inquiries, please contact support@3D Vision AI.com", 105, pageHeight - 15, null, null, "center");
+  doc.text("© " + new Date().getFullYear() + " 3D Vision AI. All rights reserved.", 105, pageHeight - 10, null, null, "center");
 
   // Add a watermark (very light)
   try {
@@ -239,18 +239,18 @@ const handleDownloadPDF = (payment) => {
     doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
     doc.setFontSize(60);
     doc.setFont("helvetica", "bold");
-    doc.text("Try Ship", 105, 140, null, null, "center");
+    doc.text("3D Vision AI", 105, 140, null, null, "center");
     doc.restoreGraphicsState();
   } catch (error) {
     // Fallback if GState is not supported
     doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2], 0.03);
     doc.setFontSize(60);
     doc.setFont("helvetica", "bold");
-    doc.text("Try Ship", 105, 140, null, null, "center");
+    doc.text("3D Vision AI", 105, 140, null, null, "center");
   }
 
   // Save the PDF
-  doc.save("Try Ship-Receipt.pdf");
+  doc.save("3D Vision AI-Receipt.pdf");
 };
 
 export default handleDownloadPDF;

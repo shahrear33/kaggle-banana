@@ -197,7 +197,7 @@ export default function Analytics({ params }) {
           <p className="text-gray-600 dark:text-gray-400">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+            className="mt-4 px-4 py-2 bg-purple-600 text-grey-900 rounded-md hover:bg-purple-700 transition-colors"
           >
             {t('retry')}
           </button>

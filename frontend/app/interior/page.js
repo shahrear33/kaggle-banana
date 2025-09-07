@@ -149,17 +149,17 @@ export default function Interior() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-rose-100 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-fuchsia-50 to-rose-100 font-sans">
       {/* Navigation */}
       <Hero />
 
       {/* Header Section */}
-      <section className="relative bg-gradient-to-br from-purple-900 via-pink-900 to-rose-900 text-white py-20 overflow-hidden">
+        <section className="relative bg-gradient-to-br from-indigo-900 via-fuchsia-900 to-rose-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%221%22%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
         <div className="relative max-w-7xl mx-auto px-6 text-center">
           <Button 
             onClick={() => router.back()} 
-            variant="outline" 
+            variant="gradient" 
             className="mb-8 border-white/30 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20"
           >
             <FiArrowLeft className="mr-2" /> Back to Home
@@ -169,9 +169,9 @@ export default function Interior() {
             Interior Design Visualization
           </div>
           <h1 className="text-4xl md:text-6xl font-extralight tracking-tight leading-tight text-white mb-6">
-            Transform Your <span className="font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Interior Space</span>
+            Transform Your <span className="font-bold bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-transparent">Interior Space</span>
           </h1>
-          <p className="text-xl text-purple-100 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl text-indigo-100 leading-relaxed max-w-3xl mx-auto">
             Redesign your living spaces with AI-powered interior visualization. Create new designs from descriptions or transform existing rooms with uploaded photos.
           </p>
         </div>
@@ -186,8 +186,8 @@ export default function Interior() {
             <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 mb-8">
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl mr-4">
-                    <MdCompare className="text-2xl text-purple-600" />
+                  <div className="p-3 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-xl mr-4">
+                    <MdCompare className="text-2xl text-indigo-600" />
                   </div>
                   <div>
                     <h2 className="text-3xl font-bold text-gray-900 mb-1">Before & After Comparison</h2>
@@ -197,13 +197,13 @@ export default function Interior() {
                 <div className="flex space-x-3">
                   <Button 
                     onClick={downloadImage}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <FiDownload className="mr-2" /> Download
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="border-gray-300 hover:border-purple-300 hover:bg-purple-50 px-4 py-2 rounded-xl font-semibold transition-all duration-300"
+                    className="border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 px-4 py-2 rounded-xl font-semibold transition-all duration-300"
                   >
                     <FiShare2 className="mr-2" /> Share
                   </Button>
@@ -216,14 +216,14 @@ export default function Interior() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold text-gray-900 flex items-center">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                      <div className="w-3 h-3 bg-indigo-500 rounded-full mr-3"></div>
                       Original Room
                     </h3>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => openImageModal(URL.createObjectURL(uploadedImage), "original")}
-                      className="text-gray-600 hover:text-purple-600"
+                      className="text-gray-600 hover:text-indigo-600"
                     >
                       <FiZoomIn className="mr-1" /> View Full Size
                     </Button>
@@ -254,14 +254,14 @@ export default function Interior() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold text-gray-900 flex items-center">
-                      <div className="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                      <div className="w-3 h-3 bg-emerald-500 rounded-full mr-3"></div>
                       AI Generated Design
                     </h3>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => openImageModal(generatedImage, "generated")}
-                      className="text-gray-600 hover:text-purple-600"
+                      className="text-gray-600 hover:text-indigo-600"
                     >
                       <FiZoomIn className="mr-1" /> View Full Size
                     </Button>
@@ -291,14 +291,14 @@ export default function Interior() {
 
               {/* Design Prompt */}
               {usedPrompt && (
-                <div className="mt-8 bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-200">
+                <div className="mt-8 bg-gradient-to-br from-indigo-50 to-fuchsia-50 p-6 rounded-2xl border border-indigo-200">
                   <div className="flex items-start space-x-3">
-                    <div className="p-2 bg-purple-100 rounded-xl">
-                      <MdOutlineDesignServices className="text-xl text-purple-600" />
+                    <div className="p-2 bg-indigo-100 rounded-xl">
+                      <MdOutlineDesignServices className="text-xl text-indigo-600" />
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-gray-900 mb-2">Design Prompt:</h4>
-                      <p className="text-gray-700 text-sm leading-relaxed bg-white p-3 rounded-xl border border-purple-200 shadow-sm">
+                      <p className="text-gray-700 text-sm leading-relaxed bg-white p-3 rounded-xl border border-indigo-200 shadow-sm">
                         {usedPrompt}
                       </p>
                     </div>
@@ -311,8 +311,8 @@ export default function Interior() {
             {costEstimation && (
               <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
                 <div className="flex items-center mb-6">
-                  <div className="p-3 bg-green-100 rounded-xl mr-4">
-                    <MdAttachMoney className="text-2xl text-green-600" />
+                  <div className="p-3 bg-emerald-100 rounded-xl mr-4">
+                    <MdAttachMoney className="text-2xl text-emerald-600" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-1">Cost Estimation</h3>
@@ -322,14 +322,14 @@ export default function Interior() {
 
                 <div className="space-y-6">
                   {/* Total Cost */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
+                  <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 rounded-2xl border border-emerald-200">
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="text-lg font-semibold text-gray-900">Total Estimated Cost</h4>
                         <p className="text-sm text-gray-600">Complete renovation budget</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-bold text-green-700">{costEstimation.total_cost}</p>
+                        <p className="text-2xl font-bold text-emerald-700">{costEstimation.total_cost}</p>
                         <p className="text-sm text-gray-500">{costEstimation.currency}</p>
                       </div>
                     </div>
@@ -383,7 +383,7 @@ export default function Interior() {
                                       href={link.url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="inline-flex items-center px-3 py-1.5 bg-blue-100 hover:bg-blue-200 text-blue-800 text-sm font-medium rounded-lg border border-blue-300 transition-colors duration-200"
+                                      className="inline-flex items-center px-3 py-1.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-sm font-medium rounded-lg border border-indigo-300 transition-colors duration-200"
                                     >
                                       <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -408,9 +408,9 @@ export default function Interior() {
 
                   {/* Raw Response Fallback */}
                   {costEstimation.raw_response && (!costEstimation.breakdown || costEstimation.breakdown.length === 0) && (
-                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
-                      <h4 className="font-semibold text-blue-900 mb-2">Cost Analysis</h4>
-                      <p className="text-blue-800 text-sm leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
+                    <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-200">
+                      <h4 className="font-semibold text-indigo-900 mb-2">Cost Analysis</h4>
+                      <p className="text-indigo-800 text-sm leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
                     </div>
                   )}
                 </div>
@@ -422,8 +422,8 @@ export default function Interior() {
         {/* Input Section - Show below images */}
         <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100">
           <div className="flex items-center mb-8">
-            <div className="p-4 bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl mr-6">
-              <MdOutlineDesignServices className="text-3xl text-purple-600" />
+            <div className="p-4 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-2xl mr-6">
+              <MdOutlineDesignServices className="text-3xl text-indigo-600" />
             </div>
             <div>
               <h2 className="text-3xl font-semibold text-gray-900 mb-2">Interior Design Generator</h2>
@@ -436,22 +436,22 @@ export default function Interior() {
             <div className="bg-gray-100 rounded-2xl p-2">
               <button
                 onClick={() => setActiveTab("describe")}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  activeTab === "describe"
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                    : "text-gray-600 hover:text-purple-600"
-                }`}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    activeTab === "describe"
+                      ? "bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-lg"
+                      : "text-gray-600 hover:text-indigo-600"
+                  }`}
               >
                 <MdOutlineDesignServices className="inline mr-2" />
                 Describe Interior
               </button>
               <button
                 onClick={() => setActiveTab("upload")}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  activeTab === "upload"
-                    ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg"
-                    : "text-gray-600 hover:text-purple-600"
-                }`}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    activeTab === "upload"
+                      ? "bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-lg"
+                      : "text-gray-600 hover:text-indigo-600"
+                  }`}
               >
                 <FiUpload className="inline mr-2" />
                 Transform Room
@@ -465,7 +465,7 @@ export default function Interior() {
             <select
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white text-gray-900"
+              className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white text-gray-900"
             >
               {countries.map((countryOption) => (
                 <option key={countryOption} value={countryOption}>
@@ -475,7 +475,7 @@ export default function Interior() {
             </select>
           </div>
           
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8">
+          <div className="bg-gradient-to-br from-indigo-50 to-fuchsia-50 rounded-2xl p-8">
             {activeTab === "describe" ? (
               <div className="space-y-6">
                 <div>
@@ -484,13 +484,13 @@ export default function Interior() {
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder="Describe your interior design in detail... (e.g., 'Modern living room with white sofa, wooden coffee table, plants, large windows, natural lighting, minimalist decor')"
-                    className="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                    className="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
                   />
                 </div>
                 <Button
                   onClick={handleGenerateInterior}
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-4 rounded-xl font-semibold transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white py-4 rounded-xl font-semibold transition-all duration-300"
                 >
                   {loading ? "Generating Design & Cost..." : "Generate Interior Design & Cost"}
                 </Button>
@@ -503,11 +503,11 @@ export default function Interior() {
                     type="file"
                     accept="image/*"
                     onChange={handleImageUpload}
-                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                   />
                   {uploadedImage && (
-                    <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-xl">
-                      <p className="text-sm text-green-600 mb-2">✓ Image uploaded: {uploadedImage.name}</p>
+                    <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
+                      <p className="text-sm text-emerald-600 mb-2">✓ Image uploaded: {uploadedImage.name}</p>
                       <div className="relative w-20 h-20 rounded-lg overflow-hidden">
                         <Image 
                           src={URL.createObjectURL(uploadedImage)}
@@ -527,13 +527,13 @@ export default function Interior() {
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder="Describe how you want to transform this room... (e.g., 'Convert to modern minimalist style with neutral colors, add plants, change furniture to contemporary pieces')"
-                    className="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                    className="w-full h-32 p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
                   />
                 </div>
                 <Button
                   onClick={handleGenerateInterior}
                   disabled={loading || !uploadedImage}
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-4 rounded-xl font-semibold transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white py-4 rounded-xl font-semibold transition-all duration-300"
                 >
                   {loading ? "Transforming Room & Calculating Cost..." : "Transform Room & Get Cost"}
                 </Button>
@@ -543,17 +543,17 @@ export default function Interior() {
 
           {/* Interior Design Tips */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
-              <h4 className="font-semibold text-purple-900 mb-3">Room Types</h4>
-              <p className="text-purple-700 text-sm">Living room, bedroom, kitchen, bathroom, office, dining room</p>
+            <div className="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+              <h4 className="font-semibold text-indigo-900 mb-3">Room Types</h4>
+              <p className="text-indigo-700 text-sm">Living room, bedroom, kitchen, bathroom, office, dining room</p>
             </div>
-            <div className="bg-pink-50 p-6 rounded-xl border border-pink-100">
-              <h4 className="font-semibold text-pink-900 mb-3">Design Styles</h4>
-              <p className="text-pink-700 text-sm">Modern, scandinavian, industrial, bohemian, traditional, minimalist</p>
+            <div className="bg-fuchsia-50 p-6 rounded-xl border border-fuchsia-100">
+              <h4 className="font-semibold text-fuchsia-900 mb-3">Design Styles</h4>
+              <p className="text-fuchsia-700 text-sm">Modern, scandinavian, industrial, bohemian, traditional, minimalist</p>
             </div>
-            <div className="bg-rose-50 p-6 rounded-xl border border-rose-100">
-              <h4 className="font-semibold text-rose-900 mb-3">Key Elements</h4>
-              <p className="text-rose-700 text-sm">Furniture, colors, lighting, textures, plants, artwork, layout</p>
+            <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-100">
+              <h4 className="font-semibold text-emerald-900 mb-3">Key Elements</h4>
+              <p className="text-emerald-700 text-sm">Furniture, colors, lighting, textures, plants, artwork, layout</p>
             </div>
           </div>
         </div>
@@ -564,7 +564,7 @@ export default function Interior() {
         <DialogContent className="sm:max-w-6xl max-h-[95vh] overflow-hidden bg-white p-0">
           <DialogHeader className="p-6 pb-0">
             <DialogTitle className="flex items-center">
-              <FiZoomIn className="mr-2 h-5 w-5 text-purple-500" />
+              <FiZoomIn className="mr-2 h-5 w-5 text-indigo-500" />
               {modalImage?.type === "original" ? "Original Room" : "AI Generated Design"}
             </DialogTitle>
           </DialogHeader>
@@ -601,7 +601,7 @@ export default function Interior() {
                   link.click();
                   document.body.removeChild(link);
                 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700"
               >
                 <FiDownload className="mr-2 h-4 w-4" />
                 Download

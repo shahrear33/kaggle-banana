@@ -24,7 +24,7 @@ export default function WorkshopsEnrolledPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="flex justify-between items-center mb-6">
-          <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-white`}>
+          <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-grey-900`}>
             Your Workshops & Hackathons
           </h1>
           <Button size="sm" variant="outline" className="gap-2">

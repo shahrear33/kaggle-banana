@@ -12,7 +12,7 @@ const AudioPlayer = ({ src }) => {
   };
 
   return (
-    <button className="btn btn-primary bg-black text-white" onClick={playAudio}>
+    <button className="btn btn-primary bg-black text-grey-900" onClick={playAudio}>
       <span role="img" aria-label="Play">
         ▶️
       </span>

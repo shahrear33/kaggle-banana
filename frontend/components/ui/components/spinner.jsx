@@ -1,7 +1,7 @@
 import { cn } from '@/components/utilities/cn';
 import { cva } from 'class-variance-authority';
 
-export const spinnerVariants = cva('animate-spin dark:text-white', {
+export const spinnerVariants = cva('animate-spin dark:text-grey-900', {
 	variants: {
 		size: {
 			default: 'h-5 w-5',

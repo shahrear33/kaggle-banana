@@ -145,7 +145,7 @@ function PdfDocument({ plan }) {
       <Page style={styles.page}>
         {/* Header */}
         <Text style={styles.header}>Certificate of Achievement</Text>
-        <Text style={styles.subheader}>TryShip Educational Platform</Text>
+        <Text style={styles.subheader}>3D Vision AI Educational Platform</Text>
         
         {/* Certificate Title */}
         <Text style={styles.certificateTitle}>{certificate.name}</Text>
@@ -204,7 +204,7 @@ function PdfDocument({ plan }) {
         
         {/* Footer */}
         <Text style={styles.footer}>
-          Issued on {currentDate} by TryShip Educational Platform • Certificate can be verified at tryship.edu/verify
+          Issued on {currentDate} by 3D Vision AI Educational Platform • Certificate can be verified at tryship.edu/verify
         </Text>
       </Page>
     </Document>

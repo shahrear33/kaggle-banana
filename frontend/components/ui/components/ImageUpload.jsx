@@ -138,7 +138,7 @@ export default function ImageUpload() {
               </div>
               <button
                 onClick={() => handleRemoveImage(index)}
-                className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 focus:outline-none"
+                className="absolute top-2 right-2 bg-red-600 text-grey-900 rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 focus:outline-none"
                 title="Remove Image"
               >
                 <FaTrash size={14} />

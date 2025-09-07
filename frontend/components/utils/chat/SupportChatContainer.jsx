@@ -63,7 +63,7 @@ export default function SupportChatContainer({ setChatOpened }) {
   
   return (
     <main className="flex flex-col w-[26rem] shadow-2xl rounded-2xl h-[32rem] bg-white absolute bottom-0 right-0">
-       <nav className="bg-gradient-to-r from-purple-600 to-indigo-600 py-4 text-white items-center rounded-t-2xl">
+       <nav className="bg-gradient-to-r from-purple-600 to-indigo-600 py-4 text-grey-900 items-center rounded-t-2xl">
             <div className="justify-between px-6 flex items-center">
                 <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -74,7 +74,7 @@ export default function SupportChatContainer({ setChatOpened }) {
                     </div>
                     <div>
                         <h3 className="font-semibold text-lg">AI Assistant</h3>
-                        <p className="text-xs text-white/70">Always here to help</p>
+                        <p className="text-xs text-grey-900/70">Always here to help</p>
                     </div>
                 </div>
                 <div onClick={() => setChatOpened(false)} className="text-xl cursor-pointer hover:bg-white/20 p-2 rounded-full transition-colors">
@@ -96,7 +96,7 @@ export default function SupportChatContainer({ setChatOpened }) {
             />
             <button 
               onClick={handleSubmit}
-              className="p-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full text-white hover:opacity-90 transition-opacity"
+              className="p-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full text-grey-900 hover:opacity-90 transition-opacity"
             >
               <BsFillSendFill className="w-4 h-4" />
             </button>

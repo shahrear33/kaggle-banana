@@ -9,12 +9,12 @@ const Footer = () => {
         data-wow-delay=".1s"
 
       >
-        <div className="container text-white">
+        <div className="container text-grey-900">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
               <div className="mb-12 max-w-[360px] lg:mb-16">
                 <Link href="/" className="mb-8 inline-block">
-                  <h1 className="text-black text-2xl">Try Ship</h1>
+                  <h1 className="text-black text-2xl">3D Vision AI</h1>
                   
                 </Link>
                 <p className="mb-9 text-base font-medium leading-relaxed text-black">
@@ -83,7 +83,7 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-black dark:text-grey-900">
                   Useful Links
                 </h2>
                 <ul>
@@ -120,7 +120,7 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-black dark:text-grey-900">
                   Terms
                 </h2>
                 <ul>
@@ -148,7 +148,7 @@ const Footer = () => {
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-10 text-xl font-bold text-black dark:text-grey-900">
                   Support & Help
                 </h2>
                 <ul>

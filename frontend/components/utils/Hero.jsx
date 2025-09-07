@@ -139,7 +139,7 @@ export default function Hero({ landing = true }) {
                   <Button variant="outline" className="border-gray-300 hover:bg-gray-100">Login</Button>
                 </Link>
                 <Link href="/signup">
-                  <Button className="bg-black hover:bg-gray-800 text-white">Sign Up</Button>
+                  <Button className="bg-black hover:bg-gray-800 text-grey-900">Sign Up</Button>
                 </Link>
               </>
             ) : (
@@ -223,7 +223,7 @@ export default function Hero({ landing = true }) {
                     <Button variant="outline" className="w-full border-gray-300 hover:bg-gray-100">Login</Button>
                   </Link>
                   <Link href="/signup">
-                    <Button className="w-full bg-black hover:bg-gray-800 text-white">Sign Up</Button>
+                    <Button className="w-full bg-black hover:bg-gray-800 text-grey-900">Sign Up</Button>
                   </Link>
                 </div>
               ) : (

@@ -29,8 +29,8 @@ const lato = Lato({
 
 
 export const metadata = {
-  title: "Try Ship - Your Travel Companion",
-  description: "Plan your perfect trip with Try Ship",
+  title: "3D Vision AI - Your Travel Companion",
+  description: "Plan your perfect trip with 3D Vision AI",
 };
 
 export default function RootLayout({ children }) {

@@ -8,8 +8,8 @@ export default function Message({ sender, messageContent, image }) {
     <div className={`flex ${isOwner ? 'justify-end' : 'justify-start'}`}>
       <div className={`max-w-[70%] rounded-lg px-4 py-2 ${
         isOwner 
-          ? 'bg-purple-600 text-white rounded-br-none' 
-          : 'bg-slate-700 text-white rounded-bl-none'
+          ? 'bg-purple-600 text-grey-900 rounded-br-none' 
+          : 'bg-slate-700 text-grey-900 rounded-bl-none'
       }`}>
         {image && (
           <div className="mb-2">

@@ -50,7 +50,7 @@ export default {
   			'violate-10': 'var(--violate-10)',
   			'violate-50': 'var(--violate-50)',
   			'violate-100': 'var(--violate-100)',
-  			'text-white': 'var(--text-white)',
+  			'text-grey-900': 'var(--text-grey-900)',
   			black: 'var(--black)',
   			'white-icon': 'var(--white-icon)',
   			'dark-1': 'var(--dark-1)',

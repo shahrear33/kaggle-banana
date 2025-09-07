@@ -37,7 +37,7 @@ export function ChatAvatar({ user = {}, size = 'md', showStatus = true }) {
       'bg-green-soft text-green-dark',
       'bg-orange-soft text-orange-dark',
       'bg-yellow-soft text-yellow-dark',
-      'bg-violate-50 text-white',
+      'bg-violate-50 text-grey-900',
       'bg-blue-100 text-blue',
     ];
     
@@ -70,7 +70,7 @@ export function ChatAvatar({ user = {}, size = 'md', showStatus = true }) {
       )}
       
       {user?.isGroup && (
-        <div className="absolute -bottom-1 -right-1 text-xs font-medium bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center border border-background">
+        <div className="absolute -bottom-1 -right-1 text-xs font-medium bg-primary text-grey-900 rounded-full w-5 h-5 flex items-center justify-center border border-background">
           {user.members > 99 ? '99+' : user.members}
         </div>
       )}

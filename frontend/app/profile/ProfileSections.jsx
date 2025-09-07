@@ -45,7 +45,7 @@ const ProfileSections = ({ profileDetails }) => {
             className="rounded-full h-24 md:h-60 md:w-60 w-24 "
           />
         ) : (
-          <div className="rounded-full  h-24 md:h-32 md:w-32 w-24 flex items-center justify-center bg-[#7BA1A4] text-white text-3xl font-bold">
+          <div className="rounded-full  h-24 md:h-32 md:w-32 w-24 flex items-center justify-center bg-[#7BA1A4] text-grey-900 text-3xl font-bold">
             {profileDetails?.name[0]}
           </div>
         )}

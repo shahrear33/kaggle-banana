@@ -160,7 +160,7 @@ function LeaderboardCard({ task }) {
                 <AvatarFallback>{task.leaderboard[1].name.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="h-24 w-20 bg-gray-300 mt-2 rounded-t-lg flex items-center justify-center">
-                <FaMedal className="text-white text-xl" />
+                <FaMedal className="text-grey-900 text-xl" />
               </div>
               <p className="mt-2 font-medium">{task.leaderboard[1].name}</p>
               <p className="text-sm">{task.leaderboard[1].score} pts</p>
@@ -173,7 +173,7 @@ function LeaderboardCard({ task }) {
                 <AvatarFallback>{task.leaderboard[0].name.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="h-32 w-24 bg-gradient-to-t from-amber-500 to-yellow-300 mt-2 rounded-t-lg flex items-center justify-center">
-                <FaTrophy className="text-white text-2xl" />
+                <FaTrophy className="text-grey-900 text-2xl" />
               </div>
               <p className="mt-2 font-medium">{task.leaderboard[0].name}</p>
               <p className="text-sm">{task.leaderboard[0].score} pts</p>
@@ -186,7 +186,7 @@ function LeaderboardCard({ task }) {
                 <AvatarFallback>{task.leaderboard[2].name.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="h-20 w-16 bg-amber-700 mt-2 rounded-t-lg flex items-center justify-center">
-                <FaMedal className="text-white text-lg" />
+                <FaMedal className="text-grey-900 text-lg" />
               </div>
               <p className="mt-2 font-medium">{task.leaderboard[2].name}</p>
               <p className="text-sm">{task.leaderboard[2].score} pts</p>
@@ -261,7 +261,7 @@ export default function LeaderboardPage() {
       >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
           <div>
-            <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-white mb-1`}>
+            <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-grey-900 mb-1`}>
               Your Leaderboards
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">

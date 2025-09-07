@@ -1,6 +1,6 @@
 const translations = {
   // Navbar
-  "appName": "TryShip",
+  "appName": "3D Vision AI",
   "home": "Home",
   "companies": "Companies",
   "workshops": "Workshops",

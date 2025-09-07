@@ -112,7 +112,7 @@ body {
     --violate-50: #9A6AFF80;
     --violate-100: #9A6AFF;
 
-    --text-white: #fff;
+    --text-grey-900: #fff;
 
     --white-icon: #888397;
 
@@ -242,7 +242,7 @@ body {
     --off: #eaedf0;
 
     --white-icon: #fff;
-    --text-white: #fff;
+    --text-grey-900: #fff;
 
     --red: #F96E6E;
     --red-20: #F96E6E33;

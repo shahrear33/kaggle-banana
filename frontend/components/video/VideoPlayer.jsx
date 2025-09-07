@@ -40,8 +40,8 @@ export default function VideoPlayer(props) {
   return (
     <div className="flex flex-col w-full h-full flex-1">
       {/* Timer display - minimal and unobtrusive */}
-      <div className="absolute top-2 right-2 z-10 flex items-center space-x-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full text-white text-xs">
-        <BsRecordCircle className={`${isRecording ? 'text-red animate-pulse' : 'text-white/70'} w-3 h-3`} />
+      <div className="absolute top-2 right-2 z-10 flex items-center space-x-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full text-grey-900 text-xs">
+        <BsRecordCircle className={`${isRecording ? 'text-red animate-pulse' : 'text-grey-900/70'} w-3 h-3`} />
         <span>{formatTime(activeTime)}</span>
       </div>
 
@@ -58,7 +58,7 @@ export default function VideoPlayer(props) {
             videoTrack={tracks[1]}
             className="h-full w-full object-cover"
           />
-          <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-white text-sm">
+          <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg text-grey-900 text-sm">
             You (Host)
           </div>
         </motion.div>
@@ -80,7 +80,7 @@ export default function VideoPlayer(props) {
                       videoTrack={user.videoTrack}
                       className="h-full w-full object-cover"
                     />
-                    <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-lg text-white text-xs">
+                    <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-lg text-grey-900 text-xs">
                       Participant {index + 1}
                     </div>
                   </motion.div>

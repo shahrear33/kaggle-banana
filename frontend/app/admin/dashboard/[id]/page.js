@@ -243,7 +243,7 @@ function ClientAdminDashboard({ params }) {
             <div>
               <h1 className="text-3xl font-bold mb-2">{t('adminDashboard')}</h1>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('TryShip')} {t('adminDashboard')} - {t('Platform Overview and Analytics')}
+                {t('3D Vision AI')} {t('adminDashboard')} - {t('Platform Overview and Analytics')}
               </p>
             </div>
             
@@ -989,7 +989,7 @@ function ClientAdminDashboard({ params }) {
                                 />
                                 
                                 {/* Supply label */}
-                                <div className="absolute left-2 top-0 h-full flex items-center text-xs text-white font-medium">
+                                <div className="absolute left-2 top-0 h-full flex items-center text-xs text-grey-900 font-medium">
                                   Supply: {supply}%
                                 </div>
                                 
@@ -1051,7 +1051,7 @@ function ClientAdminDashboard({ params }) {
                                     animate={{ height: `${item.percentage * 1.6}px` }}
                                     transition={{ duration: 0.8, delay: index * 0.1 }}
                                   >
-                                    <span className="text-white text-sm sm:text-base font-bold">{item.percentage}%</span>
+                                    <span className="text-grey-900 text-sm sm:text-base font-bold">{item.percentage}%</span>
                                   </motion.div>
                                   <div className="mt-2 text-xs sm:text-sm font-medium text-center">{item.level}</div>
                                 </motion.div>
@@ -1136,7 +1136,7 @@ function ClientAdminDashboard({ params }) {
                           name: "University of Dhaka", 
                           latitude: 23.7341, 
                           longitude: 90.3963, 
-                          description: "Flagship university with 5,738 students enrolled in TryShip" 
+                          description: "Flagship university with 5,738 students enrolled in 3D Vision AI" 
                         },
                         { 
                           id: 2, 
@@ -1355,7 +1355,7 @@ function ClientAdminDashboard({ params }) {
                                     height: `${(percentage * 1.2) + 24}px`
                                   }}
                                 >
-                                  <span className="text-xs font-bold text-white">{percentage}%</span>
+                                  <span className="text-xs font-bold text-grey-900">{percentage}%</span>
                                 </div>
                                 <div className="text-xs font-medium mt-1 text-center">
                                   Year {item.year}

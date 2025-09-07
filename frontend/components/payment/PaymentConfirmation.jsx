@@ -40,7 +40,7 @@ export default function PaymentConfirmation({ billed, setBilled, paymentMethod, 
         <p className='text-center text-sm ml-[-36%] font-bold my-1'>(BDT. {amount * 12} billed annually)</p>
         <hr className='w-[50%] h-[0.1rem] bg-gray-400 my-4'/>
         <h1 className='text-2xl my-6 font-bold'>Today's Total : <span className='ml-8'>BDT. {amount * 12}</span></h1>
-        <button onClick={confirmationHandler} className="bg-[#199292] text-white w-96 rounded-lg text-xl h-12">Complete Payment</button>
+        <button onClick={confirmationHandler} className="bg-[#199292] text-grey-900 w-96 rounded-lg text-xl h-12">Complete Payment</button>
 
         {/* Dummy Text */}
         <p className='text-sm text-gray-600 tracking-wide my-8 w-96'>

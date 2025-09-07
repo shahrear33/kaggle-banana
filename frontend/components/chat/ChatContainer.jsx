@@ -137,7 +137,7 @@ export default function ChatContainer() {
   return (
     <div className="flex flex-col h-[calc(100vh-200px)] scrollbar-hidden">
       <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-4">
-        <h1 className="text-2xl font-bold text-white">AI Chat Assistant</h1>
+        <h1 className="text-2xl font-bold text-grey-900">AI Chat Assistant</h1>
       </div>
 
       <div className="flex-1 overflow-hidden flex flex-col bg-gradient-to-r from-slate-800 to-slate-900">
@@ -156,7 +156,7 @@ export default function ChatContainer() {
                 />
                 <button
                   onClick={removeSelectedImage}
-                  className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1 text-white text-xs"
+                  className="absolute -top-2 -right-2 bg-red-500 rounded-full p-1 text-grey-900 text-xs"
                 >
                   ×
                 </button>
@@ -173,7 +173,7 @@ export default function ChatContainer() {
               onChange={e => setMessageContent(e.target.value)}
               onKeyPress={e => e.key === 'Enter' && handleSubmit()}
               placeholder="Type your message here..."
-              className="flex-1 bg-transparent text-white placeholder:text-gray-400 focus:outline-none py-2"
+              className="flex-1 bg-transparent text-grey-900 placeholder:text-gray-400 focus:outline-none py-2"
             />
             <input
               type="file"
@@ -184,14 +184,14 @@ export default function ChatContainer() {
             />
             <button 
               onClick={handleImageClick}
-              className="p-2 text-gray-400 hover:text-white transition-colors"
+              className="p-2 text-gray-400 hover:text-grey-900 transition-colors"
               title="Add image"
             >
               <FaImage className="w-5 h-5" />
             </button>
             <button 
               onClick={handleSubmit}
-              className="p-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full text-white hover:opacity-90 transition-opacity"
+              className="p-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full text-grey-900 hover:opacity-90 transition-opacity"
             >
               <BsFillSendFill className="w-5 h-5" />
             </button>

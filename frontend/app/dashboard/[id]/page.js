@@ -70,10 +70,10 @@ export default function Dashboard() {
       >
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-white mb-2`}>
+          <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-grey-900 mb-2`}>
             Welcome back, Student!
           </h1>
-          <p className="text-gray-600 dark:text-white">
+          <p className="text-gray-600 dark:text-grey-900">
             Your personalized career development journey awaits. Here's what's happening with your progress.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function Dashboard() {
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{stat.title}</p>
-                    <h3 className="text-2xl font-bold mt-1 text-gray-900 dark:text-white">{stat.value}</h3>
+                    <h3 className="text-2xl font-bold mt-1 text-gray-900 dark:text-grey-900">{stat.value}</h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stat.change}</p>
                   </div>
                   <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
@@ -162,7 +162,7 @@ export default function Dashboard() {
                   <div className="p-4 border border-gray-100 dark:border-gray-800 rounded-lg bg-gray-50 dark:bg-gray-800/30">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">Build a Responsive Dashboard</h3>
+                        <h3 className="font-medium text-gray-900 dark:text-grey-900">Build a Responsive Dashboard</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Create a responsive dashboard using React and Tailwind CSS</p>
                       </div>
                       <Badge className="bg-blue-100 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
@@ -187,7 +187,7 @@ export default function Dashboard() {
                   <div className="p-4 border border-gray-100 dark:border-gray-800 rounded-lg bg-gray-50 dark:bg-gray-800/30">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-medium text-gray-900 dark:text-white">API Integration Challenge</h3>
+                        <h3 className="font-medium text-gray-900 dark:text-grey-900">API Integration Challenge</h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Implement a REST API integration with authentication</p>
                       </div>
                       <Badge className="bg-amber-100 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400">
@@ -235,7 +235,7 @@ export default function Dashboard() {
                         {event.icon}
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-medium text-gray-900 dark:text-white">{event.title}</h3>
+                        <h3 className="font-medium text-gray-900 dark:text-grey-900">{event.title}</h3>
                         <div className="flex items-center gap-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
                           <Badge variant="outline" className="px-1.5 py-0 text-xs">{event.type}</Badge>
                           <div className="flex items-center gap-1">
@@ -279,7 +279,7 @@ export default function Dashboard() {
                       <AvatarFallback>TC</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">TechCorp Inc.</h3>
+                      <h3 className="font-medium text-gray-900 dark:text-grey-900">TechCorp Inc.</h3>
                       <p className="text-xs text-gray-500 dark:text-gray-400">Web Development, AI Solutions</p>
                     </div>
                     <Badge variant="outline" className="text-xs">92% Match</Badge>
@@ -291,7 +291,7 @@ export default function Dashboard() {
                       <AvatarFallback>IS</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">Innovate Solutions</h3>
+                      <h3 className="font-medium text-gray-900 dark:text-grey-900">Innovate Solutions</h3>
                       <p className="text-xs text-gray-500 dark:text-gray-400">UX Design, Frontend Engineering</p>
                     </div>
                     <Badge variant="outline" className="text-xs">85% Match</Badge>
@@ -303,7 +303,7 @@ export default function Dashboard() {
                       <AvatarFallback>DL</AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">DataLeap</h3>
+                      <h3 className="font-medium text-gray-900 dark:text-grey-900">DataLeap</h3>
                       <p className="text-xs text-gray-500 dark:text-gray-400">Data Science, Analytics</p>
                     </div>
                     <Badge variant="outline" className="text-xs">78% Match</Badge>

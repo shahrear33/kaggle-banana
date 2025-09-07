@@ -21,7 +21,7 @@ const mockCertificates = [
   {
     id: 1,
     title: "Full Stack Web Development",
-    issuer: "TryShip",
+    issuer: "3D Vision AI",
     issueDate: "May 5, 2025",
     validUntil: "Lifetime",
     skills: ["JavaScript", "React", "Node.js", "Express", "MongoDB"],
@@ -33,7 +33,7 @@ const mockCertificates = [
   {
     id: 2,
     title: "AI & Machine Learning Hackathon Winner",
-    issuer: "TryShip",
+    issuer: "3D Vision AI",
     issueDate: "April 12, 2025",
     validUntil: "Lifetime",
     skills: ["Python", "TensorFlow", "Data Analysis", "Neural Networks"],
@@ -45,7 +45,7 @@ const mockCertificates = [
   {
     id: 3,
     title: "Advanced Data Structures & Algorithms",
-    issuer: "TryShip",
+    issuer: "3D Vision AI",
     issueDate: "March 21, 2025",
     validUntil: "Lifetime",
     skills: ["Algorithms", "Data Structures", "Problem Solving", "Optimization"],
@@ -57,7 +57,7 @@ const mockCertificates = [
   {
     id: 4,
     title: "Top Performer: Mobile App Development",
-    issuer: "TryShip",
+    issuer: "3D Vision AI",
     issueDate: "February 15, 2025",
     validUntil: "Lifetime",
     skills: ["Flutter", "Dart", "Firebase", "UI/UX Design"],
@@ -150,7 +150,7 @@ export default function CertificatesPage() {
         transition={{ duration: 0.5 }}
       >
         <div className="flex justify-between items-center mb-6">
-          <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-white`}>
+          <h1 className={`${poppins.className} text-2xl font-bold text-gray-900 dark:text-grey-900`}>
             Your Certificates & Achievements
           </h1>
           <Button size="sm" variant="outline" className="gap-2">
@@ -221,7 +221,7 @@ export default function CertificatesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Certificate Preview */}
               <div className="flex flex-col">
-                <h2 className={`${poppins.className} text-xl font-bold mb-4 text-gray-900 dark:text-white`}>
+                <h2 className={`${poppins.className} text-xl font-bold mb-4 text-gray-900 dark:text-grey-900`}>
                   Certificate Preview
                 </h2>
                 <div className="relative h-64 md:h-80 w-full bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden mb-4">
@@ -229,7 +229,7 @@ export default function CertificatesPage() {
                     <div className="text-center p-4">
                       <FaCertificate className="text-6xl text-primary mx-auto mb-2" />
                       <h3 className="text-lg font-semibold">{activeCertificate.title}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Issued by TryShip on {activeCertificate.issueDate}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Issued by 3D Vision AI on {activeCertificate.issueDate}</p>
                     </div>
                   </div>
                 </div>
@@ -240,14 +240,14 @@ export default function CertificatesPage() {
                   </Button>
                   <PDFGenerator 
                     input={createCertificateData(activeCertificate)} 
-                    fileName={`TryShip-${activeCertificate.type === 'course' ? 'Course' : 'Achievement'}-${activeCertificate.credentialID}`}
+                    fileName={`3D Vision AI-${activeCertificate.type === 'course' ? 'Course' : 'Achievement'}-${activeCertificate.credentialID}`}
                   />
                 </div>
               </div>
 
               {/* Certificate Details */}
               <div className="space-y-4">
-                <h2 className={`${poppins.className} text-xl font-bold mb-4 text-gray-900 dark:text-white`}>
+                <h2 className={`${poppins.className} text-xl font-bold mb-4 text-gray-900 dark:text-grey-900`}>
                   Certificate Details
                 </h2>
                 

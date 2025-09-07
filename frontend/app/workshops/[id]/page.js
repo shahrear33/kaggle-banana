@@ -177,7 +177,7 @@ export default function WorkshopDetailsPage({ params }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
               </div>
               
-              <div className="absolute bottom-0 left-0 w-full p-6 dark:text-white text-black">
+              <div className="absolute bottom-0 left-0 w-full p-6 dark:text-grey-900 text-black">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -259,9 +259,9 @@ export default function WorkshopDetailsPage({ params }) {
             {/* Content tabs */}
             <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="mb-8">
               <TabsList className="grid grid-cols-3 w-full sm:w-[400px] bg-indigo-100 dark:bg-indigo-900/30">
-                <TabsTrigger value="overview" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Overview</TabsTrigger>
-                <TabsTrigger value="materials" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Materials</TabsTrigger>
-                <TabsTrigger value="details" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Details</TabsTrigger>
+                <TabsTrigger value="overview" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-grey-900">Overview</TabsTrigger>
+                <TabsTrigger value="materials" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-grey-900">Materials</TabsTrigger>
+                <TabsTrigger value="details" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-grey-900">Details</TabsTrigger>
               </TabsList>
               
               <TabsContent value="overview" className="mt-6">

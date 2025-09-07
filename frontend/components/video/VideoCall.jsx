@@ -169,7 +169,7 @@ export default function VideoCall(props) {
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className='px-6 py-3 bg-primary hover:bg-primary-dark transition-colors rounded-lg text-white font-medium'
+              className='px-6 py-3 bg-primary hover:bg-primary-dark transition-colors rounded-lg text-grey-900 font-medium'
               onClick={() => setStart(true)}
             >
               Join Call Now

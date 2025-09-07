@@ -98,7 +98,7 @@ export default function VirtualSessionsPage() {
         id: 999,
         name: newSessionData.mentorName,
         position: "Mentor",
-        company: "TryShip",
+        company: "3D Vision AI",
         avatar: "/avatars/default.png"
       },
       description: newSessionData.description,

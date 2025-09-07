@@ -12,7 +12,7 @@ const buttonVariantOptions = {
   variants: {
     variant: {
       // Primary buttons
-      primary: 'bg-primary text-white shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:bg-primary-dark',
+      primary: 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:bg-indigo-700',
       
       // Secondary buttons
       secondary: 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700',
@@ -30,35 +30,35 @@ const buttonVariantOptions = {
       icon: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 !p-2',
       
       // Link buttons
-      link: 'text-primary hover:text-primary-dark underline-offset-4 hover:underline !p-0',
+      link: 'text-indigo-600 hover:text-indigo-700 underline-offset-4 hover:underline !p-0',
       
       // Text buttons
       text: 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white !p-0',
       
       // Success buttons
-      success: 'bg-green text-white shadow-lg shadow-green/20 hover:bg-green-dark',
+      success: 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 hover:bg-emerald-600',
       
       // Dark buttons
       dark: 'bg-gray-900 text-white',
       
       // Menu buttons
-      menu: 'bg-primary text-white shadow-lg rounded-full hover:bg-primary-dark',
+      menu: 'bg-indigo-600 text-white shadow-lg rounded-full hover:bg-indigo-700',
       
       // Outline secondary buttons
-      'outline-secondary': 'bg-primary-100/10 border border-primary-100/50 text-gray-800 dark:text-white hover:border-primary-100',
+      'outline-secondary': 'bg-indigo-50 border border-indigo-200 text-indigo-700 hover:border-indigo-300 hover:bg-indigo-100',
       
       // New variants
-      glass: 'backdrop-blur-md bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 text-gray-800 dark:text-white hover:bg-white/20 dark:hover:bg-black/30',
+      glass: 'backdrop-blur-md bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 text-white hover:bg-white/20 dark:hover:bg-black/30',
       
-      gradient: 'bg-gradient-to-r from-primary to-blue text-white shadow-lg hover:shadow-xl transition-shadow',
+      gradient: 'bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-lg hover:shadow-xl transition-shadow',
       
-      soft: 'bg-primary-soft text-primary hover:bg-primary-soft-hover',
+      soft: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100',
       
-      'soft-success': 'bg-success-soft text-green hover:bg-success-soft-hover',
+      'soft-success': 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100',
       
-      'soft-danger': 'bg-danger-soft text-red-500 hover:bg-danger-soft-hover',
+      'soft-danger': 'bg-red-50 text-red-700 hover:bg-red-100',
       
-      'soft-warning': 'bg-warning-soft text-yellow hover:bg-warning-soft-hover',
+      'soft-warning': 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100',
     },
     size: {
       default: 'h-10 px-4 py-2',

@@ -91,7 +91,7 @@ export default function RootLayout({ children }) {
       <div className="flex flex-1">
         {/* Sidebar */}
         <motion.aside 
-          className={`${isSidebarCollapsed ? 'w-20' : 'w-72'} bg-white dark:bg-dark-1 text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-800 flex flex-col h-[calc(100vh-84px)] transition-all duration-300 ease-in-out`}
+          className={`${isSidebarCollapsed ? 'w-20' : 'w-72'} bg-white dark:bg-dark-1 text-gray-900 dark:text-grey-900 border-r border-gray-200 dark:border-gray-800 flex flex-col h-[calc(100vh-84px)] transition-all duration-300 ease-in-out`}
           initial={false}
           animate={{ width: isSidebarCollapsed ? 80 : 288 }}
         >
@@ -120,7 +120,7 @@ export default function RootLayout({ children }) {
                   <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white">Student User</h3>
+                  <h3 className="font-medium text-gray-900 dark:text-grey-900">Student User</h3>
                   <div className="flex items-center gap-1">
                     <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-medium rounded bg-primary/10 text-primary">
                       {t("level")} 2

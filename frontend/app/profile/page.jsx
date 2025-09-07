@@ -118,7 +118,7 @@ const ProfileCard = () => {
                         {editMode ? (
                             <>
                                 <div className='flex'>
-                                    <button className='px-3 flex items-center rounded-lg bg-red text-white text-sm' onClick={() => setEditMode(false)}>Cancel</button>
+                                    <button className='px-3 flex items-center rounded-lg bg-red text-grey-900 text-sm' onClick={() => setEditMode(false)}>Cancel</button>
                                     <button className='ml-2 px-3 flex items-center rounded-lg bg-primary text-[#fff] text-sm' onClick={() => handleSaveClick('about')}>Save</button>
                                 </div>
                             </>
