@@ -145,7 +145,7 @@ export default function Hero({ landing = true }) {
   return (
     <>
       <nav className="bg-white shadow-md p-4 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="max-w-6xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
           {/* Logo - Left */}
           <div className="flex items-center space-x-2">
             <MdOutlineArchitecture className="text-3xl text-gray-800" />

@@ -487,31 +487,31 @@ export default function Interior() {
             </div>
           </div>
 
-          {/* Tab Selection */}
-          <div className="flex justify-center mb-8">
+        {/* Tab Selection */}
+        <div className="flex justify-center mb-8">
             <div className="bg-gray-100 rounded-2xl p-2">
-              <button
-                onClick={() => setActiveTab("describe")}
-                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                    activeTab === "describe"
+            <button
+              onClick={() => setActiveTab("describe")}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                activeTab === "describe"
                       ? "bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-lg"
                       : "text-gray-600 hover:text-indigo-600"
-                  }`}
-              >
-                <MdOutlineDesignServices className="inline mr-2" />
-                Describe Interior
-              </button>
-              <button
-                onClick={() => setActiveTab("upload")}
-                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                    activeTab === "upload"
+              }`}
+            >
+              <MdOutlineDesignServices className="inline mr-2" />
+              Describe Interior
+            </button>
+            <button
+              onClick={() => setActiveTab("upload")}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                activeTab === "upload"
                       ? "bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white shadow-lg"
                       : "text-gray-600 hover:text-indigo-600"
-                  }`}
-              >
-                <FiUpload className="inline mr-2" />
-                Transform Room
-              </button>
+              }`}
+            >
+              <FiUpload className="inline mr-2" />
+              Transform Room
+            </button>
             </div>
           </div>
 
@@ -647,20 +647,20 @@ export default function Interior() {
                       onClick={() => copyPromptTemplate(template)}
                       className="p-4 bg-gradient-to-br from-indigo-50 to-fuchsia-50 rounded-xl border border-indigo-200 cursor-pointer hover:shadow-md transition-all duration-200 hover:border-indigo-300 group"
                     >
-                      <div className="flex items-start space-x-3">
+                <div className="flex items-start space-x-3">
                         <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-indigo-500 to-fuchsia-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
                           {templateIndex + 1}
-                        </div>
+                  </div>
                         <p className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
                           {template}
                         </p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+                                  ))}
+                                </div>
         </DialogContent>
       </Dialog>
 
@@ -685,9 +685,9 @@ export default function Interior() {
                 style={{ width: 'auto', height: 'auto' }}
                 unoptimized
               />
-            </div>
-          )}
-          
+                    </div>
+                  )}
+
           <div className="flex justify-end space-x-2 p-6 pt-0">
             <Button
               variant="outline"
