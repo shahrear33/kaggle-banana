@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "strict": false
+  },
+  "exclude": ["node_modules", "**/node_modules/*"],
+  "include": ["**/*.js", "**/*.jsx"]
+}

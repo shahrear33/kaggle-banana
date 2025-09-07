@@ -1,0 +1,5 @@
+Error: cannot identify image file <_io.BytesIO object at 0x7e92f4ba3d30>
+Image parts count: 1
+Data type: <class 'bytes'>
+Data length: 1087880
+First 100 chars: b'iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAAgAElEQVR4nKy926LsOAosCJ7//+MpMw8QQYDkXLvPmezqvTJtXbgG'
