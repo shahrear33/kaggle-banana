@@ -9,9 +9,10 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/components/toaster";
 import Image from "next/image";
-import { FiDownload, FiShare2, FiArrowLeft, FiUpload, FiDollarSign, FiZoomIn, FiX } from "react-icons/fi";
+import { FiDownload, FiShare2, FiArrowLeft, FiUpload, FiDollarSign, FiZoomIn, FiX, FiInfo } from "react-icons/fi";
 import { MdOutlineDesignServices, MdAttachMoney, MdCompare } from "react-icons/md";
 import Hero from "@/components/utils/Hero";
+import NearbyShops from "@/components/maps/NearbyShops";
 
 export default function Interior() {
   const [generatedImage, setGeneratedImage] = useState(null);
@@ -24,8 +25,58 @@ export default function Interior() {
   const [loading, setLoading] = useState(false);
   const [modalImage, setModalImage] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [showPromptTemplates, setShowPromptTemplates] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+
+  // Interior renovation prompt templates
+  const promptTemplates = [
+    {
+      category: "Living Room",
+      prompts: [
+        "Modern minimalist living room with white sofa, wooden coffee table, and large plants",
+        "Cozy traditional living room with leather furniture, warm lighting, and bookshelves",
+        "Scandinavian style living room with light wood, neutral colors, and natural textures",
+        "Industrial living room with exposed brick, metal accents, and vintage furniture"
+      ]
+    },
+    {
+      category: "Bedroom",
+      prompts: [
+        "Master bedroom with king bed, walk-in closet, and en-suite bathroom",
+        "Bohemian bedroom with colorful textiles, plants, and eclectic decor",
+        "Modern bedroom with platform bed, built-in storage, and smart lighting",
+        "Rustic bedroom with wooden beams, stone fireplace, and cozy textiles"
+      ]
+    },
+    {
+      category: "Kitchen",
+      prompts: [
+        "Open concept kitchen with island, stainless steel appliances, and quartz countertops",
+        "Farmhouse kitchen with shaker cabinets, apron sink, and subway tile backsplash",
+        "Modern kitchen with flat-panel cabinets, waterfall island, and smart appliances",
+        "Traditional kitchen with raised panel cabinets, granite countertops, and pendant lighting"
+      ]
+    },
+    {
+      category: "Bathroom",
+      prompts: [
+        "Spa-like bathroom with freestanding tub, walk-in shower, and natural stone",
+        "Modern bathroom with floating vanity, large mirror, and LED lighting",
+        "Vintage bathroom with clawfoot tub, subway tiles, and brass fixtures",
+        "Luxury bathroom with double vanity, rain shower, and heated floors"
+      ]
+    },
+    {
+      category: "Home Office",
+      prompts: [
+        "Productive home office with standing desk, ergonomic chair, and natural light",
+        "Creative studio with large desk, inspiration board, and storage solutions",
+        "Minimalist office with clean lines, hidden storage, and calming colors",
+        "Industrial office with exposed brick, metal furniture, and vintage lighting"
+      ]
+    }
+  ];
 
   // List of countries for selection
   const countries = [
@@ -148,6 +199,16 @@ export default function Interior() {
     setModalImage(null);
   };
 
+  // Function to copy prompt template
+  const copyPromptTemplate = (template) => {
+    setPrompt(template);
+    setShowPromptTemplates(false);
+    toast({
+      title: "Template Applied",
+      description: "Prompt template has been added to your input",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-fuchsia-50 to-rose-100 font-sans">
       {/* Navigation */}
@@ -178,249 +239,244 @@ export default function Interior() {
       </section>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto p-6 py-16">
-        {/* Images Section - Show above input only after generation */}
+      <main className="max-w-[80%] mx-auto px-6 py-12" style={{ maxWidth: '1920px', width: '100%' }}>
+        {/* Results Section - Show after generation */}
         {generatedImage && (
           <div className="mb-16">
-            {/* Image Comparison Section */}
-            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 mb-8">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-xl mr-4">
-                    <MdCompare className="text-2xl text-indigo-600" />
-                  </div>
-                  <div>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-1">Before & After Comparison</h2>
-                    <p className="text-gray-600">See how your space transforms with AI-powered design</p>
-                  </div>
-                </div>
-                <div className="flex space-x-3">
-                  <Button 
-                    onClick={downloadImage}
-                    className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    <FiDownload className="mr-2" /> Download
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 px-4 py-2 rounded-xl font-semibold transition-all duration-300"
-                  >
-                    <FiShare2 className="mr-2" /> Share
-                  </Button>
-                </div>
-              </div>
-
-              {/* Side by Side Images */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Original Image */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center">
-                      <div className="w-3 h-3 bg-indigo-500 rounded-full mr-3"></div>
-                      Original Room
-                    </h3>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => openImageModal(URL.createObjectURL(uploadedImage), "original")}
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      <FiZoomIn className="mr-1" /> View Full Size
-                    </Button>
-                  </div>
-                  <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-gray-100 to-gray-200">
-                    {uploadedImage ? (
-                      <Image 
-                        src={URL.createObjectURL(uploadedImage)}
-                        alt="Original Room" 
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        className="rounded-2xl cursor-pointer hover:scale-105 transition-transform duration-300"
-                        onClick={() => openImageModal(URL.createObjectURL(uploadedImage), "original")}
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-gray-500">
-                        <div className="text-center">
-                          <FiUpload className="mx-auto text-4xl mb-2" />
-                          <p>No original image uploaded</p>
-                        </div>
+            {/* Main Results Grid */}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-12 mb-8">
+              
+              {/* Left Column - Images */}
+              <div className="xl:col-span-2">
+                <div className="bg-white rounded-3xl shadow-2xl p-4 border border-gray-100">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center">
+                      <div className="p-3 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-xl mr-4">
+                        <MdCompare className="text-2xl text-indigo-600" />
                       </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Generated Image */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-semibold text-gray-900 flex items-center">
-                      <div className="w-3 h-3 bg-emerald-500 rounded-full mr-3"></div>
-                      AI Generated Design
-                    </h3>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => openImageModal(generatedImage, "generated")}
-                      className="text-gray-600 hover:text-indigo-600"
-                    >
-                      <FiZoomIn className="mr-1" /> View Full Size
-                    </Button>
-                  </div>
-                  <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-gray-100 to-gray-200">
-                    {generatedImage ? (
-                      <Image 
-                        src={generatedImage}
-                        alt="Generated Interior Design" 
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        className="rounded-2xl cursor-pointer hover:scale-105 transition-transform duration-300"
-                        onClick={() => openImageModal(generatedImage, "generated")}
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-gray-500">
-                        <div className="text-center">
-                          <MdOutlineDesignServices className="mx-auto text-4xl mb-2" />
-                          <p>Generate a design to see the comparison</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Design Prompt */}
-              {usedPrompt && (
-                <div className="mt-8 bg-gradient-to-br from-indigo-50 to-fuchsia-50 p-6 rounded-2xl border border-indigo-200">
-                  <div className="flex items-start space-x-3">
-                    <div className="p-2 bg-indigo-100 rounded-xl">
-                      <MdOutlineDesignServices className="text-xl text-indigo-600" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 mb-2">Design Prompt:</h4>
-                      <p className="text-gray-700 text-sm leading-relaxed bg-white p-3 rounded-xl border border-indigo-200 shadow-sm">
-                        {usedPrompt}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Cost Estimation Section */}
-            {costEstimation && (
-              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
-                <div className="flex items-center mb-6">
-                  <div className="p-3 bg-emerald-100 rounded-xl mr-4">
-                    <MdAttachMoney className="text-2xl text-emerald-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1">Cost Estimation</h3>
-                    <p className="text-gray-600">Renovation costs for {country}</p>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  {/* Total Cost */}
-                  <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 rounded-2xl border border-emerald-200">
-                    <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900">Total Estimated Cost</h4>
-                        <p className="text-sm text-gray-600">Complete renovation budget</p>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-1">Before & After</h2>
+                        <p className="text-gray-600">AI-powered design transformation</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-emerald-700">{costEstimation.total_cost}</p>
-                        <p className="text-sm text-gray-500">{costEstimation.currency}</p>
-                      </div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <Button 
+                        onClick={downloadImage}
+                        size="sm"
+                        className="bg-gradient-to-r from-indigo-600 to-fuchsia-600 hover:from-indigo-700 hover:to-fuchsia-700 text-white px-3 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                      >
+                        <FiDownload className="mr-1" /> Download
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="border-gray-300 hover:border-indigo-300 hover:bg-indigo-50 px-3 py-2 rounded-lg font-semibold transition-all duration-300"
+                      >
+                        <FiShare2 className="mr-1" /> Share
+                      </Button>
                     </div>
                   </div>
 
-                  {/* Cost Breakdown */}
-                  {costEstimation.breakdown && costEstimation.breakdown.length > 0 && (
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Cost Breakdown</h4>
-                      <div className="space-y-3">
-                        {costEstimation.breakdown.map((item, index) => (
-                          <div key={index} className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                            <div className="flex justify-between items-start">
-                              <div className="flex-1">
-                                <h5 className="font-semibold text-gray-900">{item.category}</h5>
-                                <p className="text-sm text-gray-600 mt-1">{item.description}</p>
-                              </div>
-                              <div className="text-right ml-4">
-                                <p className="font-semibold text-gray-900">{item.cost}</p>
-                              </div>
+                  {/* Side by Side Images */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Original Image */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                          <div className="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                          Original Room
+                        </h3>
+                        <div className="ml-8">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openImageModal(URL.createObjectURL(uploadedImage), "original")}
+                            className="text-gray-600 hover:text-indigo-600 text-xs"
+                          >
+                            <FiZoomIn className="mr-1" /> View Full Size
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="relative w-full h-[450px] rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-100 to-gray-200">
+                        {uploadedImage ? (
+                          <Image 
+                            src={URL.createObjectURL(uploadedImage)}
+                            alt="Original Room" 
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            className="rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300"
+                            onClick={() => openImageModal(URL.createObjectURL(uploadedImage), "original")}
+                            unoptimized
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full text-gray-500">
+                            <div className="text-center">
+                              <FiUpload className="mx-auto text-3xl mb-2" />
+                              <p className="text-sm">No original image</p>
                             </div>
                           </div>
-                        ))}
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Generated Image */}
+                    <div className="space-y-4 w-full">
+                      <div className="flex w-full items-center justify-between">
+                        <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                          <div className="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
+                          AI Generated Design
+                        </h3>
+                        <div className="ml-8">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openImageModal(generatedImage, "generated")}
+                            className="text-gray-600 hover:text-indigo-600 text-xs"
+                          >
+                            <FiZoomIn className="mr-1" /> View Full Size
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="relative w-full h-[450px] rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-100 to-gray-200">
+                        {generatedImage ? (
+                          <Image 
+                            src={generatedImage}
+                            alt="Generated Interior Design" 
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            className="rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300"
+                            onClick={() => openImageModal(generatedImage, "generated")}
+                            unoptimized
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full text-gray-500">
+                            <div className="text-center">
+                              <MdOutlineDesignServices className="mx-auto text-3xl mb-2" />
+                              <p className="text-sm">Generate to see comparison</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Design Prompt */}
+                  {usedPrompt && (
+                    <div className="mt-6 bg-gradient-to-br from-indigo-50 to-fuchsia-50 p-4 rounded-xl border border-indigo-200">
+                      <div className="flex items-start space-x-3">
+                        <div className="p-2 bg-indigo-100 rounded-lg">
+                          <MdOutlineDesignServices className="text-lg text-indigo-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-gray-900 mb-2 text-sm">Design Prompt:</h4>
+                          <p className="text-gray-700 text-xs leading-relaxed bg-white p-2 rounded-lg border border-indigo-200 shadow-sm">
+                            {usedPrompt}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
+                </div>
+              </div>
 
-                  {/* Individual Items */}
-                  {costEstimation.items && costEstimation.items.length > 0 && (
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Item Details & Shopping Links</h4>
-                      <div className="space-y-4">
-                        {costEstimation.items.map((item, index) => (
-                          <div key={index} className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                            <div className="flex justify-between items-start mb-3">
-                              <div className="flex-1">
-                                <h5 className="text-gray-900 font-semibold">{item.item}</h5>
-                                {item.quantity && <span className="text-gray-500 text-sm">Quantity: {item.quantity}</span>}
+              {/* Right Column - Cost Estimation */}
+              <div className="xl:col-span-1">
+                {costEstimation && (
+                  <div className="bg-white rounded-3xl shadow-2xl p-4 border border-gray-100 h-fit">
+                    <div className="flex items-center mb-6">
+                      <div className="p-3 bg-emerald-100 rounded-xl mr-4">
+                        <MdAttachMoney className="text-xl text-emerald-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">Cost Estimation</h3>
+                        <p className="text-gray-600 text-sm">Renovation costs for {country}</p>
+                      </div>
+                    </div>
+
+                    {/* Total Cost */}
+                    <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-4 rounded-xl border border-emerald-200 mb-4">
+                      <div className="text-center">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-1">Total Estimated Cost</h4>
+                        <p className="text-xl font-bold text-emerald-700">{costEstimation.total_cost}</p>
+                        <p className="text-xs text-gray-500">{costEstimation.currency}</p>
+                      </div>
+                    </div>
+
+                    {/* Cost Breakdown - Show All Items */}
+                    {costEstimation.breakdown && costEstimation.breakdown.length > 0 && (
+                      <div className="mb-4">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-3">Breakdown</h4>
+                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                          {costEstimation.breakdown.map((item, index) => (
+                            <div key={index} className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                              <div className="flex justify-between items-center">
+                                <div className="flex-1 min-w-0">
+                                  <h5 className="font-semibold text-gray-900 text-sm truncate">{item.category}</h5>
+                                  <p className="text-xs text-gray-600 truncate">{item.description}</p>
+                                </div>
+                                <div className="text-right ml-2">
+                                  <p className="font-semibold text-gray-900 text-sm">{item.cost}</p>
+                                </div>
                               </div>
-                              <span className="font-bold text-gray-900 text-lg">{item.cost}</span>
                             </div>
-                            
-                            {/* Shopping Links */}
-                            {item.shopping_links && item.shopping_links.length > 0 && (
-                              <div className="mt-3">
-                                <p className="text-sm font-medium text-gray-700 mb-2">Where to buy:</p>
-                                <div className="flex flex-wrap gap-2">
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Shopping Links - Show All Items */}
+                    {costEstimation.items && costEstimation.items.length > 0 && (
+                      <div>
+                        <h4 className="text-sm font-semibold text-gray-900 mb-3">Shopping Links</h4>
+                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                          {costEstimation.items.map((item, index) => (
+                            <div key={index} className="bg-gray-50 p-2 rounded-lg border border-gray-200">
+                              <div className="flex justify-between items-center mb-1">
+                                <h5 className="text-gray-900 font-semibold text-xs truncate">{item.item}</h5>
+                                <span className="font-bold text-gray-900 text-xs">{item.cost}</span>
+                              </div>
+                              {item.shopping_links && item.shopping_links.length > 0 && (
+                                <div className="flex flex-wrap gap-1">
                                   {item.shopping_links.map((link, linkIndex) => (
                                     <a
                                       key={linkIndex}
                                       href={link.url}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="inline-flex items-center px-3 py-1.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-sm font-medium rounded-lg border border-indigo-300 transition-colors duration-200"
+                                      className="inline-flex items-center px-2 py-1 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-xs font-medium rounded border border-indigo-300 transition-colors duration-200"
                                     >
-                                      <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                      </svg>
                                       {link.platform}
-                                      <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                      </svg>
                                     </a>
                                   ))}
                                 </div>
-                                {item.shopping_links[0]?.note && (
-                                  <p className="text-xs text-gray-600 mt-2 italic">{item.shopping_links[0].note}</p>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
-                  {/* Raw Response Fallback */}
-                  {costEstimation.raw_response && (!costEstimation.breakdown || costEstimation.breakdown.length === 0) && (
-                    <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-200">
-                      <h4 className="font-semibold text-indigo-900 mb-2">Cost Analysis</h4>
-                      <p className="text-indigo-800 text-sm leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
-                    </div>
-                  )}
-                </div>
+                    {/* Raw Response Fallback */}
+                    {costEstimation.raw_response && (!costEstimation.breakdown || costEstimation.breakdown.length === 0) && (
+                      <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                        <h4 className="font-semibold text-indigo-900 mb-2 text-sm">Cost Analysis</h4>
+                        <p className="text-indigo-800 text-xs leading-relaxed whitespace-pre-wrap">{costEstimation.raw_response}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* Nearby Shops Section - Full Width */}
+            <div className="bg-white rounded-3xl shadow-2xl p-4 border border-gray-100">
+              <NearbyShops />
+            </div>
           </div>
         )}
 
         {/* Input Section - Show below images */}
-        <div className="bg-white rounded-3xl shadow-2xl p-10 border border-gray-100">
+        <div className="bg-white rounded-3xl shadow-2xl p-6 border border-gray-100">
           <div className="flex items-center mb-8">
             <div className="p-4 bg-gradient-to-br from-indigo-100 to-fuchsia-100 rounded-2xl mr-6">
               <MdOutlineDesignServices className="text-3xl text-indigo-600" />
@@ -479,7 +535,18 @@ export default function Interior() {
             {activeTab === "describe" ? (
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">Describe Your Interior Design</label>
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="block text-sm font-semibold text-gray-700">Describe Your Interior Design</label>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowPromptTemplates(true)}
+                      className="text-indigo-600 hover:text-indigo-700 border-indigo-300 hover:border-indigo-400"
+                    >
+                      <FiInfo className="mr-1" />
+                      Prompt Ideas
+                    </Button>
+                  </div>
                   <Textarea
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
@@ -558,6 +625,44 @@ export default function Interior() {
           </div>
         </div>
       </main>
+
+      {/* Prompt Templates Modal */}
+      <Dialog open={showPromptTemplates} onOpenChange={setShowPromptTemplates}>
+        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-hidden bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-900 mb-2">Interior Design Prompt Ideas</DialogTitle>
+            <p className="text-gray-600">Click on any prompt to use it in your design description</p>
+          </DialogHeader>
+          
+          <div className="space-y-6 max-h-[70vh] overflow-y-auto">
+            {promptTemplates.map((category, categoryIndex) => (
+              <div key={categoryIndex} className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">
+                  {category.category}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {category.prompts.map((template, templateIndex) => (
+                    <div
+                      key={templateIndex}
+                      onClick={() => copyPromptTemplate(template)}
+                      className="p-4 bg-gradient-to-br from-indigo-50 to-fuchsia-50 rounded-xl border border-indigo-200 cursor-pointer hover:shadow-md transition-all duration-200 hover:border-indigo-300 group"
+                    >
+                      <div className="flex items-start space-x-3">
+                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-indigo-500 to-fuchsia-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                          {templateIndex + 1}
+                        </div>
+                        <p className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
+                          {template}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Image Modal */}
       <Dialog open={modalOpen} onOpenChange={closeImageModal}>

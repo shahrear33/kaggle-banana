@@ -31,6 +31,15 @@ const lato = Lato({
 export const metadata = {
   title: "3D Vision AI - Your Travel Companion",
   description: "Plan your perfect trip with 3D Vision AI",
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/logo2.ico', sizes: 'any' },
+      { url: '/logo2.png', type: 'image/png' }
+    ],
+    shortcut: '/logo2.ico',
+    apple: '/logo2.png',
+  },
 };
 
 export default function RootLayout({ children }) {
