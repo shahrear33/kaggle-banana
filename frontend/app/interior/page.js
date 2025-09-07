@@ -69,6 +69,10 @@ export default function Interior() {
         setGeneratedImage(data.image_url);
         setUsedPrompt(data.prompt);
         setCostEstimation(data.cost_estimation);
+        
+        // Auto scroll to top to show the generated images
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
         toast({
           title: "Success",
           description: "Interior design and cost estimation generated successfully",
