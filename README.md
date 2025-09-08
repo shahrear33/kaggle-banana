@@ -1,4 +1,4 @@
-# 🏠 3D Interior AI - Nano Banana Hackathon
+# 🏠 3D Interior AI - Instant Interiors with Gemini Vision
 
 An AI-powered interior design platform that transforms spaces using **Google Gemini 2.5 Flash Image** capabilities. Upload a room photo, specify preferences, and instantly receive personalized design options with cost estimates and shopping links. Advanced interactive features allow users to select specific portions of 3D models for hyper-detailed, realistic interior designs.
 
